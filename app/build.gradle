@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
-
+git
 android {
     namespace 'com.ifstatic.mrbilling'
     compileSdk 33
@@ -48,15 +48,15 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics'
     //authentication
-    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
     //real-time database
-    implementation 'com.google.firebase:firebase-database:20.1.0'
+    implementation 'com.google.firebase:firebase-database:20.2.2'
     //cloud-storage database
-    implementation 'com.google.firebase:firebase-storage:20.1.0'
+    implementation 'com.google.firebase:firebase-storage:20.2.0'
     //cloud-messaging
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
     //google authentication
-    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
 
     //color
     implementation 'androidx.palette:palette:1.0.0'
@@ -71,6 +71,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
 }
