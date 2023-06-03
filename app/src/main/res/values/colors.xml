@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#FF8800</color>
-    <color name="colorSecondary">#323131</color>
+        <color name="colorPrimary">#FF8800</color>
+        <color name="colorSecondary">#323131</color>
 
         <color name="error_color">#C62828</color>
         <color name="app_default_color">@color/orange_500</color>

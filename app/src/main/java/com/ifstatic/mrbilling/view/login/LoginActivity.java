@@ -1,23 +1,18 @@
-package com.ifstatic.mrbilling.login;
+package com.ifstatic.mrbilling.view.login;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.ifstatic.mrbilling.MainActivity;
+import com.ifstatic.mrbilling.view.home.HomeActivity;
 import com.ifstatic.mrbilling.databinding.ActivityLoginBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.utilities.AppConstants;
@@ -130,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 if (s.equals(AppConstants.SUCCESS)) {
-                    AppBoiler.navigateToActivityWithFinish(LoginActivity.this, MainActivity.class,null);
+                    AppBoiler.navigateToActivityWithFinish(LoginActivity.this, HomeActivity.class,null);
                 } else {
                     Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
                 }

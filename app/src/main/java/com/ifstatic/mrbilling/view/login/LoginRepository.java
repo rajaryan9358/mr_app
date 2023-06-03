@@ -1,4 +1,4 @@
-package com.ifstatic.mrbilling.login;
+package com.ifstatic.mrbilling.view.login;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;

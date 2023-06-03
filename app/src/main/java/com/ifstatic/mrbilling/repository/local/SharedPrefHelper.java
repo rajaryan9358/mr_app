@@ -2,8 +2,8 @@ package com.ifstatic.mrbilling.repository.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.ifstatic.mrbilling.base.MyBaseApplication;
+import com.ifstatic.mrbilling.utilities.AppConstants;
 
 public class SharedPrefHelper {
 
@@ -13,7 +13,7 @@ public class SharedPrefHelper {
     private static SharedPrefHelper sharedPrefHelper;
 
     private SharedPrefHelper(){
-        sharedPreferences = MyBaseApplication.getApplication().getSharedPreferences("MRBilling", Context.MODE_PRIVATE);
+        sharedPreferences = MyBaseApplication.getApplication().getSharedPreferences(AppConstants.SHARED_DB_NAME, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
@@ -26,6 +26,10 @@ public class SharedPrefHelper {
     public void setUidOfUser(String uid){
         editor.putString("uid",uid);
         editor.apply();
+    }
+
+    public String getUidOfUser(){
+        return sharedPreferences.getString("uid",null);
     }
 
 }
