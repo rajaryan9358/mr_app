@@ -6,6 +6,8 @@
 
         <color name="error_color">#C62828</color>
         <color name="app_default_color">@color/orange_500</color>
+        <color name="grey_color">#F5F5F5</color>
+        <color name="text_color_dark_grey">#8F8F8F</color>
         <!--Reds-->
         <color name="red_50">#FFEBEE</color>
         <color name="red_100">#FFCDD2</color>

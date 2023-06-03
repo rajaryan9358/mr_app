@@ -16,7 +16,7 @@ public class AddPartyRepository {
         MutableLiveData<String> responseMutableLiveData = new MutableLiveData<>();
         DatabaseReference databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
 
-        databaseReference.child("Party").setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+        databaseReference.child("Party").push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 responseMutableLiveData.setValue(AppConstants.SUCCESS);

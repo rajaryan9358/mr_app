@@ -16,7 +16,7 @@
         android:id="@+id/partyInputLayout"
         style="@style/TextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_46sdp"
+        android:layout_height="@dimen/_50sdp"
         android:hint="Party"
         android:layout_margin="@dimen/_8sdp"
         app:shapeAppearance="@style/cornerRounded_TextInputLayout">
@@ -44,8 +44,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addressEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:maxLines="5"
             android:textAppearance="@style/InputTextAppearance"
             android:textColor="@color/colorSecondary" />
 

@@ -27,7 +27,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/userId"
-        app:endIconDrawable="@drawable/person"
         android:layout_marginTop="@dimen/_20sdp"
         app:shapeAppearance="@style/cornerRounded_TextInputLayout"
         app:layout_constraintEnd_toStartOf="@+id/guideline_right"

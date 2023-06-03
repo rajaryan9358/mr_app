@@ -10,29 +10,138 @@
         android:id="@+id/mrBillingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mr. Billing"
+        android:text="MR Billing"
         android:textColor="@color/colorSecondary"
         android:textSize="20sp"
+        android:fontFamily="@font/nunito_bold"
         android:gravity="start"
-        app:layout_constraintEnd_toStartOf="@id/profileImageView"
         app:layout_constraintStart_toStartOf="@id/guideline_left"
         app:layout_constraintTop_toBottomOf="@id/guideline_top" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
         android:src="@drawable/profile_image"
         app:layout_constraintTop_toTopOf="@id/guideline_top"
-        app:layout_constraintStart_toEndOf="@id/mrBillingTextView"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"/>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addTransactionButton"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="Add Transaction"
+        android:letterSpacing="0"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/white"
+        app:strokeWidth="1dp"
+        android:drawableLeft="@drawable/ic_add"
+        app:cornerRadius="@dimen/_8sdp"
+        app:strokeColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/nunito_medium"
+        android:textSize="@dimen/_12ssp"
+        app:rippleColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintEnd_toStartOf="@+id/addPartyButton"
+        app:layout_constraintTop_toBottomOf="@+id/mrBillingTextView"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addPartyButton"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:text="Add Party"
+        app:cornerRadius="@dimen/_8sdp"
+        android:backgroundTint="@color/white"
+        app:strokeWidth="1dp"
+        android:drawableLeft="@drawable/ic_person"
+        app:strokeColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimary"
+        android:letterSpacing="0"
+        app:rippleColor="@color/black"
+        android:textAllCaps="false"
+        android:fontFamily="@font/nunito_medium"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toEndOf="@+id/addTransactionButton"
+        app:layout_constraintEnd_toEndOf="@+id/guideline_right"
+        app:layout_constraintTop_toTopOf="@+id/addTransactionButton"/>
+
+    <TextView
+        android:id="@+id/recentTransactionsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recent Transactions"
+        android:fontFamily="@font/nunito_bold"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/addTransactionButton"/>
+
+    <TextView
+        android:id="@+id/viewAllTransactionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View All"
+        android:fontFamily="@font/nunito_medium"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@+id/recentTransactionsTextView"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recentTransactionRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@+id/recentTransactionsTextView"
+        android:layout_marginTop="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/myPartiesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Parties"
+        android:fontFamily="@font/nunito_bold"
+        android:textSize="@dimen/_14ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="@+id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/recentTransactionRecyclerView"/>
+
+    <TextView
+        android:id="@+id/viewAllPartyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View All"
+        android:fontFamily="@font/nunito_medium"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toTopOf="@+id/myPartiesTextView"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myPartiesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintTop_toBottomOf="@+id/myPartiesTextView"
+        android:layout_marginTop="@dimen/_8sdp"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="@dimen/_10sdp" />
+        app:layout_constraintGuide_begin="@dimen/_16sdp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_left"

@@ -59,7 +59,7 @@ public class AddPartyActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                party = charSequence.toString();
+                party = charSequence.toString().trim();
                 if(party.length() == 0){
                     binding.partyInputLayout.setError("Enter Party Name");
                 } else {
@@ -81,7 +81,7 @@ public class AddPartyActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                address = charSequence.toString();
+                address = charSequence.toString().trim();
                 if(address.length() == 0){
                     binding.addressInputLayout.setError("Enter Address");
                 } else {

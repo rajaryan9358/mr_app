@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
 
     private String email = "", password = "";
-    public Dialog progressDialog, customDialog;
+    public Dialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                email = charSequence.toString();
+                email = charSequence.toString().trim();
                 int isValid = Validation.isValidEmail(email);
 
                 if (isValid == 1) {
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                password = charSequence.toString();
+                password = charSequence.toString().trim();
                 if (Validation.isStringEmpty(password)) {
                     binding.passwordInputLayout.setError("Enter password");
                 } else {
@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                     binding.userIdEditText.requestFocus();
                 } else if (binding.passwordInputLayout.isErrorEnabled() || Validation.isStringEmpty(password)) {
                     binding.passwordEditText.requestFocus();
-                    binding.passwordInputLayout.setError("Enter password");
+                    binding.passwordInputLayout.setError("Enter Password");
                 } else {
                     loginUser();
                 }
