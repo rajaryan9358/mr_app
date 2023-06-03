@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
-git
+
 android {
     namespace 'com.ifstatic.mrbilling'
     compileSdk 33
