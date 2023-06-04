@@ -10,7 +10,7 @@
         android:id="@+id/mrBillingTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MR Billing"
+        android:text="@string/mr_billing"
         android:textColor="@color/colorSecondary"
         android:textSize="20sp"
         android:fontFamily="@font/nunito_bold"
@@ -33,7 +33,7 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_marginRight="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:text="Add Transaction"
+        android:text="@string/add_transaction"
         android:letterSpacing="0"
         android:textAllCaps="false"
         android:backgroundTint="@color/white"
@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginLeft="@dimen/_4sdp"
-        android:text="Add Party"
+        android:text="@string/add_party"
         app:cornerRadius="@dimen/_8sdp"
         android:backgroundTint="@color/white"
         app:strokeWidth="1dp"
@@ -74,7 +74,7 @@
         android:id="@+id/recentTransactionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recent Transactions"
+        android:text="@string/recent_transactions"
         android:fontFamily="@font/nunito_bold"
         android:textSize="@dimen/_14ssp"
         android:textColor="@color/black"
@@ -86,10 +86,10 @@
         android:id="@+id/viewAllTransactionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All"
+        android:text="@string/view_all"
         android:fontFamily="@font/nunito_medium"
         android:textSize="@dimen/_12ssp"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_color"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintTop_toTopOf="@+id/recentTransactionsTextView"/>
 
@@ -107,7 +107,7 @@
         android:id="@+id/myPartiesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Parties"
+        android:text="@string/my_parties"
         android:fontFamily="@font/nunito_bold"
         android:textSize="@dimen/_14ssp"
         android:textColor="@color/black"
@@ -119,10 +119,10 @@
         android:id="@+id/viewAllPartyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All"
+        android:text="@string/view_all"
         android:fontFamily="@font/nunito_medium"
         android:textSize="@dimen/_12ssp"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_color"
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintTop_toTopOf="@+id/myPartiesTextView"/>
 
@@ -135,6 +135,20 @@
         app:layout_constraintEnd_toEndOf="@id/guideline_right"
         app:layout_constraintTop_toBottomOf="@+id/myPartiesTextView"
         android:layout_marginTop="@dimen/_8sdp"/>
+
+    <TextView
+        android:id="@+id/noPartiesFoundTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/no_parties_found"
+        android:fontFamily="@font/nunito_bold"
+        android:textSize="@dimen/_14ssp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/guideline_right"
+        app:layout_constraintStart_toStartOf="@id/guideline_left"
+        app:layout_constraintTop_toBottomOf="@+id/myPartiesTextView"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top"
@@ -163,4 +177,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_end="@dimen/_10sdp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

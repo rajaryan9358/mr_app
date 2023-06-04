@@ -16,7 +16,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Header Title"
+        android:text="@string/header_title"
         android:fontFamily="@font/nunito_semibold"
         android:textSize="@dimen/_16ssp"
         android:textColor="@color/black"

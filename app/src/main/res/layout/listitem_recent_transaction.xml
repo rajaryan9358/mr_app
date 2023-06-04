@@ -3,55 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/_30sdp">
 
     <TextView
         android:id="@+id/mrNoTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:text="#0012"
+        android:text="@string/_0012"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:layout_margin="@dimen/_8sdp"
+        android:fontFamily="@font/nunito_medium"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/partytextView"
+        app:layout_constraintEnd_toStartOf="@+id/partyTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/partytextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/partyTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-       android:layout_margin="@dimen/_10sdp"
-        android:text="Shiva"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="@string/shiva"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_medium"
         app:layout_constraintEnd_toStartOf="@+id/dateAndTimeTextView"
         app:layout_constraintStart_toEndOf="@+id/mrNoTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/dateAndTimeTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:text="15 May"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="@string/_15_may"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_medium"
         app:layout_constraintEnd_toStartOf="@+id/amountTextView"
-        app:layout_constraintStart_toEndOf="@+id/partytextView"
+        app:layout_constraintStart_toEndOf="@+id/partyTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/amountTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:text="Amount"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="@string/amount"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_medium"
         app:layout_constraintEnd_toStartOf="@+id/paymentTextView"
         app:layout_constraintStart_toEndOf="@+id/dateAndTimeTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/paymentTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:text="Payment"
+        android:layout_margin="@dimen/_8sdp"
+        android:text="@string/payment"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/nunito_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/amountTextView"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

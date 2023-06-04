@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_50sdp"
+    android:layout_height="@dimen/_46sdp"
     app:cardCornerRadius="@dimen/_8sdp"
-    app:cardElevation="@dimen/_4sdp"
+    app:cardElevation="@dimen/_2sdp"
     app:cardBackgroundColor="@color/grey_color"
-    android:layout_marginLeft="@dimen/_8sdp"
-    android:layout_marginTop="@dimen/_2sdp"
-    android:layout_marginRight="@dimen/_8sdp">
+    android:layout_marginLeft="@dimen/_3sdp"
+    android:layout_marginRight="@dimen/_3sdp"
+    android:layout_marginTop="@dimen/_4sdp"
+    android:layout_marginBottom="@dimen/_4sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_medium"
             android:singleLine="true"
-            android:text="Rahul"
+            android:text="@string/rahul"
             android:layout_marginRight="@dimen/_8sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/nunito_medium"
             android:singleLine="true"
-            android:text="Alpha 1, Greater Noida"
+            android:text="@string/alpha_1_greater_noida"
             android:textColor="@color/text_color_dark_grey"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,9 +50,9 @@
 
         <ImageView
             android:id="@+id/dropRightImageView"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:src="@drawable/ic_back_arrow"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_12sdp"
+            android:src="@drawable/ic_forward_arrow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

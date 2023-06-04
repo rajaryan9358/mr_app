@@ -1,7 +1,51 @@
 <resources>
     <string name="app_name">MRBilling</string>
+
+    //LoginActivity
     <string name="login_to_your_account">Login To Your Account</string>
     <string name="userId">User ID</string>
     <string name="password">Password</string>
     <string name="loginButton">Login</string>
+
+    //Create Transaction Activity
+    <string name="mr_no">MR.NO:</string>
+    <string name="_000135">#000135</string>
+    <string name="date">Date: </string>
+    <string name="_23_may_2023">23 May,2023</string>
+    <string name="address">Address:</string>
+    <string name="royal_resorts_hyderabad_telangana_500058">Royal Resorts, Hyderabad Telangana,500058</string>
+    <string name="amount">Amount</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="cheque">Cheque</string>
+    <string name="online">Online</string>
+    <string name="upi">UPI</string>
+    <string name="cash">Cash</string>
+    <string name="credit_or_debit">Credit Or Debit</string>
+    <string name="_25_may_2023">25 May 2023</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="cheque_no">Cheque No</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    //Add Party Activity
+    <string name="party">Party</string>
+    <string name="address_">Address</string>
+
+    //Home Activity
+    <string name="mr_billing">MR Billing</string>
+    <string name="add_transaction">Add Transaction</string>
+    <string name="add_party">Add Party</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="view_all">View All</string>
+    <string name="my_parties">My Parties</string>
+    <string name="no_parties_found">No Parties Found</string>
+
+    //Extras
+    <string name="header_title">Header Title</string>
+    <string name="rahul">Rahul</string>
+    <string name="alpha_1_greater_noida">Alpha 1, Greater Noida</string>
+    <string name="_0012">#0012</string>
+    <string name="shiva">Shiva</string>
+    <string name="_15_may">15 May</string>
+    <string name="payment">Payment</string>
 </resources>

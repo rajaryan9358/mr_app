@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.ifstatic.mrbilling.repository.local.SharedPrefHelper;
 import com.ifstatic.mrbilling.view.home.HomeActivity;
 import com.ifstatic.mrbilling.databinding.ActivityLoginBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
@@ -33,9 +34,13 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        if(isUserLoggedIn()){
+            AppBoiler.navigateToActivityWithFinish(this,HomeActivity.class,null);
+        }
 
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         initListeners();
+
     }
 
     private void initListeners() {
@@ -131,6 +136,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean isUserLoggedIn(){
+        String uid = SharedPrefHelper.getInstance().getUidOfUser();
+        if(Validation.isStringEmpty(uid)){
+            return false;
+        } else
+            return true;
     }
 
 }

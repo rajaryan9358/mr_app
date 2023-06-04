@@ -13,17 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ifstatic.mrbilling.R;
 import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyPartiesAdapter extends RecyclerView.Adapter<MyPartiesAdapter.MyPartiesViewHolder> {
 
     private Context context;
-    private List<MyPartiesModel> myPartiesModelList;
+    private List<MyPartiesModel> myPartiesModelList = new ArrayList<>();
     private ItemClickListener itemClickListener;
 
-    public MyPartiesAdapter(Context context , List<MyPartiesModel> myPartiesModelList){
+    public MyPartiesAdapter(Context context){
         this.context = context;
+    }
+
+    public void notifyListIsChanged(List<MyPartiesModel> myPartiesModelList){
         this.myPartiesModelList = myPartiesModelList;
+        notifyDataSetChanged();
     }
 
     public void initClickListener(ItemClickListener itemClickListener){

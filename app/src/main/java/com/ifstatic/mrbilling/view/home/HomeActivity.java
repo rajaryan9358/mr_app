@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,14 +18,20 @@ import com.ifstatic.mrbilling.view.create_transaction.CreateTransactionActivity;
 import com.ifstatic.mrbilling.view.home.adapters.MyPartiesAdapter;
 import com.ifstatic.mrbilling.view.home.adapters.RecentTransactionAdapter;
 import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
+import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
 import com.ifstatic.mrbilling.view.home.viewmodel.HomeViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private HomeViewModel homeViewModel;
+    private MyPartiesAdapter myPartiesAdapter;
+    private RecentTransactionAdapter recentTransactionAdapter;
+    private List<MyPartiesModel> myPartiesModelList;
+    private String currentMrNo ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,10 @@ public class HomeActivity extends AppCompatActivity {
 
         initViews();
         initListeners();
+
+        setMyPartiesAdapter();
+        setRecentTransactionAdapter();
+
         getRecentTransactionFromServer();
         getMyPartiesFromServer();
     }
@@ -48,7 +59,17 @@ public class HomeActivity extends AppCompatActivity {
         binding.addTransactionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppBoiler.navigateToActivity(HomeActivity.this, CreateTransactionActivity.class,null);
+
+                if(currentMrNo == null){
+                    currentMrNo = "0";
+                }
+                int no = Integer.parseInt(currentMrNo);
+                no++;
+
+                Bundle bundle = new Bundle();
+                bundle.putString("mr_no",String.valueOf(no));
+                bundle.putParcelableArrayList("party_data", (ArrayList<? extends Parcelable>) myPartiesModelList);
+                AppBoiler.navigateToActivity(HomeActivity.this, CreateTransactionActivity.class,bundle);
             }
         });
 
@@ -60,9 +81,43 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
+    /* ======================================= RECENT TRANSACTIONS ========================================  */
+
     private void getRecentTransactionFromServer(){
 
+        LiveData<List<RecentTransactionModel>> recentTransactionModelLiveData = homeViewModel.getRecentTransactionsFromRepository();
+        recentTransactionModelLiveData.observe(this, new Observer<List<RecentTransactionModel>>() {
+            @Override
+            public void onChanged(List<RecentTransactionModel> recentTransactionModels) {
+                if(recentTransactionModels == null){
+                    Toast.makeText(HomeActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                 if(recentTransactionModels.size() > 0){
+                     currentMrNo = recentTransactionModels.get(recentTransactionModels.size()-1).getMrNo();
+                     System.out.println("================= CURRENT MR ========= "+currentMrNo);
+                     binding.viewAllTransactionTextView.setVisibility(View.VISIBLE);
+                } else {
+                    binding.viewAllTransactionTextView.setVisibility(View.GONE);
+                }
+                 notifyRecentTransactionAdapter(recentTransactionModels);
+            }
+        });
+
     }
+    private void setRecentTransactionAdapter() {
+
+        recentTransactionAdapter = new RecentTransactionAdapter(this);
+        binding.recentTransactionRecyclerView.setAdapter(recentTransactionAdapter);
+    }
+
+    private void notifyRecentTransactionAdapter(List<RecentTransactionModel> recentTransactionModelList){
+        recentTransactionAdapter.notifyItemChanged(recentTransactionModelList);
+    }
+
+
+    /* ======================================= MY PARTIES ========================================  */
 
     private void getMyPartiesFromServer(){
 
@@ -71,24 +126,21 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<MyPartiesModel> myPartiesModels) {
                 if(myPartiesModels.size() >0){
-                    setMyPartiesAdapter(myPartiesModels);
+                    binding.noPartiesFoundTextView.setVisibility(View.GONE);
+                    binding.viewAllPartyTextView.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(HomeActivity.this, "No Parties Found", Toast.LENGTH_SHORT).show();
+                    binding.noPartiesFoundTextView.setVisibility(View.VISIBLE);
+                    binding.viewAllPartyTextView.setVisibility(View.GONE);
                 }
-
+                myPartiesModelList = myPartiesModels;
+                notifyPartiesAdapter();
             }
         });
     }
 
-    private void setRecentTransactionAdapter() {
+    private void setMyPartiesAdapter(){
 
-        RecentTransactionAdapter recentTransactionAdapter = new RecentTransactionAdapter(this);
-        binding.recentTransactionRecyclerView.setAdapter(recentTransactionAdapter);
-    }
-
-    private void setMyPartiesAdapter(List<MyPartiesModel> myPartiesModelList) {
-
-        MyPartiesAdapter myPartiesAdapter = new MyPartiesAdapter(this , myPartiesModelList);
+        myPartiesAdapter = new MyPartiesAdapter(this);
         binding.myPartiesRecyclerView.setAdapter(myPartiesAdapter);
 
         myPartiesAdapter.initClickListener(new MyPartiesAdapter.ItemClickListener() {
@@ -98,4 +150,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void notifyPartiesAdapter() {
+        myPartiesAdapter.notifyListIsChanged(myPartiesModelList);
+    }
+
 }

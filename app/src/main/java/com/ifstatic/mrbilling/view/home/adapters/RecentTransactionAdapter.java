@@ -1,41 +1,68 @@
 package com.ifstatic.mrbilling.view.home.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.ifstatic.mrbilling.R;
+import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransactionAdapter.RecentTransactionViewHolder> {
 
     private Context context;
 
+    private List<RecentTransactionModel> recentTransactionModelList = new ArrayList<>();
+
     public RecentTransactionAdapter(Context context){
         this.context = context;
     }
 
+    public void notifyItemChanged(List<RecentTransactionModel> recentTransactionModelList){
+        this.recentTransactionModelList = recentTransactionModelList;
+    }
 
     @NonNull
     @Override
     public RecentTransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new RecentTransactionViewHolder(LayoutInflater.from(context).inflate(R.layout.listitem_recent_transaction,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecentTransactionViewHolder holder, int position) {
 
+        RecentTransactionModel model = recentTransactionModelList.get(position);
+
+        holder.partyTextView.setText(model.getParty());
+        holder.mrNoTextView.setText(model.getMrNo());
+        holder.dateAndTimeTextView.setText(model.getDateAndTime());
+        holder.paymentTextView.setText(model.getPayment());
+        holder.amountTextView.setText(model.getAmount());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return recentTransactionModelList.size();
     }
 
     public class RecentTransactionViewHolder extends RecyclerView.ViewHolder{
 
+        TextView mrNoTextView , paymentTextView , amountTextView , dateAndTimeTextView , partyTextView;
         public RecentTransactionViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            mrNoTextView = itemView.findViewById(R.id.mrNoTextView);
+            paymentTextView = itemView.findViewById(R.id.paymentTextView);
+            amountTextView = itemView.findViewById(R.id.amountTextView);
+            dateAndTimeTextView = itemView.findViewById(R.id.dateAndTimeTextView);
+            partyTextView = itemView.findViewById(R.id.partyTextView);
         }
     }
 }
