@@ -62,8 +62,9 @@ public class CreateTransactionActivity extends AppCompatActivity {
             currentMrNo = bundle.getString("mr_no");
 
             binding.mrNoTextView.setText("#"+currentMrNo);
-            setPartyDataToSpinner();
-            System.out.println("============ IN ========== " + myPartiesModelList.size());
+            if(myPartiesModelList != null){
+                setPartyDataToSpinner();
+            }
         }
     }
 

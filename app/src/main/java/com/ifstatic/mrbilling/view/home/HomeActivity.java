@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -32,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecentTransactionAdapter recentTransactionAdapter;
     private List<MyPartiesModel> myPartiesModelList;
     private String currentMrNo ;
+    private Dialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +48,16 @@ public class HomeActivity extends AppCompatActivity {
         setMyPartiesAdapter();
         setRecentTransactionAdapter();
 
-        getRecentTransactionFromServer();
-        getMyPartiesFromServer();
+        if(AppBoiler.isInternetConnected(this)){
+
+            progressDialog = AppBoiler.setProgressDialog(this);
+            getRecentTransactionFromServer();
+            getMyPartiesFromServer();
+
+        } else {
+            AppBoiler.showSnackBarForInternet(this,binding.getRoot());
+        }
+
     }
 
     private void initViews() {
@@ -125,6 +135,9 @@ public class HomeActivity extends AppCompatActivity {
         myPartiesModelListLiveData.observe(this, new Observer<List<MyPartiesModel>>() {
             @Override
             public void onChanged(List<MyPartiesModel> myPartiesModels) {
+
+                progressDialog.dismiss();
+
                 if(myPartiesModels.size() >0){
                     binding.noPartiesFoundTextView.setVisibility(View.GONE);
                     binding.viewAllPartyTextView.setVisibility(View.VISIBLE);

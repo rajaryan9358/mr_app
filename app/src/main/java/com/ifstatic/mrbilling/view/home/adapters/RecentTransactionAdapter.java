@@ -1,6 +1,7 @@
 package com.ifstatic.mrbilling.view.home.adapters;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
 
     public void notifyItemChanged(List<RecentTransactionModel> recentTransactionModelList){
         this.recentTransactionModelList = recentTransactionModelList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,10 +42,19 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
 
         RecentTransactionModel model = recentTransactionModelList.get(position);
 
+        if(position%2!=0){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                holder.itemView.setBackgroundColor(context.getColor(R.color.light_color_primary));
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                holder.itemView.setBackgroundColor(context.getColor(R.color.white));
+            }
+        }
         holder.partyTextView.setText(model.getParty());
-        holder.mrNoTextView.setText(model.getMrNo());
-        holder.dateAndTimeTextView.setText(model.getDateAndTime());
-        holder.paymentTextView.setText(model.getPayment());
+        holder.mrNoTextView.setText("#"+model.getMrNo());
+        holder.dateAndTimeTextView.setText(model.getDate());
+        holder.paymentTextView.setText(model.getPaymentMode());
         holder.amountTextView.setText(model.getAmount());
     }
 

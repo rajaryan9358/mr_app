@@ -4,9 +4,9 @@ public class RecentTransactionModel {
 
     private String mrNo ;
     private String party;
-    private String payment ;
+    private String paymentMode ;
     private String amount;
-    private String dateAndTime;
+    private String date;
 
     public RecentTransactionModel() {
     }
@@ -27,12 +27,12 @@ public class RecentTransactionModel {
         this.party = party;
     }
 
-    public String getPayment() {
-        return payment;
+    public String getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setPayment(String payment) {
-        this.payment = payment;
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
     public String getAmount() {
@@ -43,11 +43,11 @@ public class RecentTransactionModel {
         this.amount = amount;
     }
 
-    public String getDateAndTime() {
-        return dateAndTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateAndTime(String dateAndTime) {
-        this.dateAndTime = dateAndTime;
+    public void setDate(String date) {
+        this.date = date;
     }
 }
