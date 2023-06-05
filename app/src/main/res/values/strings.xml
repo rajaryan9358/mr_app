@@ -62,4 +62,5 @@
     <string name="payment_mode_">Payment Mode:</string>
     <string name="print_transaction">Print Transaction</string>
     <string name="share_transaction">Share Transaction</string>
+    <string name="transactions">Transactions:</string>
 </resources>

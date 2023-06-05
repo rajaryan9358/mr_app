@@ -9,6 +9,7 @@
         <color name="grey_color">#F5F5F5</color>
         <color name="text_color_dark_grey">#8F8F8F</color>
         <color name="blue_color">#3890C1</color>
+        <color name="lightgrey__text_color">#A3A3A3</color>
         <color name="light_color_primary">#80FF8800</color>
 
         <!--Reds-->
