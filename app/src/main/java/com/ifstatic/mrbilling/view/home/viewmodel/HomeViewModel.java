@@ -13,12 +13,23 @@ public class HomeViewModel extends ViewModel {
 
     private final HomeRepository repository = new HomeRepository();
 
+    private LiveData<List<MyPartiesModel>> myPartiesListLiveData;
+    private LiveData<List<RecentTransactionModel>> recentTransactionListLiveData;
+
     public LiveData<List<MyPartiesModel>> getPartiesModelListFromRepository(){
-        return repository.getMyPartiesFromServer();
+
+        if(myPartiesListLiveData == null){
+            myPartiesListLiveData =  repository.getMyPartiesFromServer();
+        }
+        return myPartiesListLiveData;
     }
 
     public LiveData<List<RecentTransactionModel>> getRecentTransactionsFromRepository(){
-        return repository.getRecentTransactionsFromServer();
+
+        if(recentTransactionListLiveData == null){
+            recentTransactionListLiveData =  repository.getRecentTransactionsFromServer();
+        }
+        return recentTransactionListLiveData;
     }
 
 }

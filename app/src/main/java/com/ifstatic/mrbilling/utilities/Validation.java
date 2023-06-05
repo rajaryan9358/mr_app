@@ -114,4 +114,6 @@ public class Validation {
     public static boolean isStringEmpty(String string) {
         return (string == null || string.trim().length() == 0);
     }
+
+
 }

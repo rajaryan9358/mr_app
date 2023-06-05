@@ -1,4 +1,4 @@
-package com.ifstatic.mrbilling.view.create_transaction;
+package com.ifstatic.mrbilling.view.create_transaction.models;
 
 public class CreateTransactionModel {
     private String party;
@@ -6,6 +6,7 @@ public class CreateTransactionModel {
     private String paymentMode;
     private String date;
     private String mrNo;
+    private ChequeDetailModel chequeDetail;
 
     public CreateTransactionModel(String party, String amount, String paymentMode, String date, String mrNo) {
         this.party = party;
@@ -53,5 +54,13 @@ public class CreateTransactionModel {
 
     public void setMrNo(String mrNo) {
         this.mrNo = mrNo;
+    }
+
+    public ChequeDetailModel getChequeDetail() {
+        return chequeDetail;
+    }
+
+    public void setChequeDetail(ChequeDetailModel chequeDetail) {
+        this.chequeDetail = chequeDetail;
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
@@ -27,7 +28,8 @@ public class HomeRepository {
 
         MutableLiveData<List<MyPartiesModel>> myPartiesMutableList = new MutableLiveData<>();
 
-        databaseReference.child("Party").addValueEventListener(new ValueEventListener() {
+        Query query = databaseReference.child("Party").orderByKey().limitToFirst(8);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
