@@ -22,8 +22,8 @@
     <string name="cash">Cash</string>
     <string name="credit_or_debit">Credit Or Debit</string>
     <string name="_25_may_2023">25 May 2023</string>
-    <string name="bank_name">Bank Name</string>
-    <string name="cheque_no">Cheque No</string>
+    <string name="bank_name">Bank Name:</string>
+    <string name="cheque_no">Cheque No:</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
 
@@ -49,4 +49,18 @@
     <string name="_15_may">15 May</string>
     <string name="payment">Payment</string>
     <string name="date_and_time">Date &amp; Time</string>
+
+    //All Transactions
+    <string name="search_party_name">Search Party Name</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+
+    //Transaction Details
+    <string name="name">Name:</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="amount_">Amount: </string>
+    <string name="payment_mode_">Payment Mode:</string>
+    <string name="print_transaction">Print Transaction</string>
+    <string name="share_transaction">Share Transaction</string>
+    <string name="transactions">Transactions:</string>
 </resources>
