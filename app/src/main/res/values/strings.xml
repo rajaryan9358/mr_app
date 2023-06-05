@@ -49,4 +49,7 @@
     <string name="_15_may">15 May</string>
     <string name="payment">Payment</string>
     <string name="date_and_time">Date &amp; Time</string>
+    <string name="search_party_name">Search Party Name</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
 </resources>

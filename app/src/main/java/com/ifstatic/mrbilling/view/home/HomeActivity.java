@@ -89,6 +89,18 @@ public class HomeActivity extends AppCompatActivity {
                 AppBoiler.navigateToActivity(HomeActivity.this, AddPartyActivity.class,null);
             }
         });
+        binding.viewAllTransactionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppBoiler.navigateToActivity(HomeActivity.this, ViewAllTransactionActivity.class,null);
+            }
+        });
+        binding.viewAllPartyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppBoiler.navigateToActivity(HomeActivity.this, ViewAllMyPartyActivity.class,null);
+            }
+        });
     }
 
 
