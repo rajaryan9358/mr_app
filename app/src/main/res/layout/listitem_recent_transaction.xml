@@ -42,31 +42,43 @@
         android:layout_margin="@dimen/_4sdp"
         android:fontFamily="@font/nunito_medium"
         android:text="@string/_15_may"
-        android:padding="@dimen/_4sdp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/amountTextView"
+        app:layout_constraintEnd_toStartOf="@+id/amountLinearLayout"
         app:layout_constraintStart_toEndOf="@+id/partyTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/amountTextView"
+    <LinearLayout
+        android:id="@+id/amountLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_margin="@dimen/_4sdp"
-        android:fontFamily="@font/nunito_medium"
-        android:text="@string/amount"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_10ssp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/paymentTextView"
         app:layout_constraintStart_toEndOf="@+id/dateAndTimeTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:drawableStartCompat="@drawable/ic_rupee_black"
-        android:drawablePadding="-24dp"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/ic_rupee_black"/>
+
+        <TextView
+            android:id="@+id/amountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_medium"
+            android:text="@string/amount"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/paymentTextView"
@@ -80,7 +92,7 @@
         android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/amountTextView"
+        app:layout_constraintStart_toEndOf="@+id/amountLinearLayout"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

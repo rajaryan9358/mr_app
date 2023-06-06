@@ -1,17 +1,17 @@
-package com.ifstatic.mrbilling.view.home.models;
+package com.ifstatic.mrbilling.comman.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MyPartiesModel implements Parcelable {
+public class PartyModel implements Parcelable {
 
     private String party;
     private String address;
 
-    public MyPartiesModel() {
+    public PartyModel() {
     }
 
-    public MyPartiesModel(String party, String address) {
+    public PartyModel(String party, String address) {
         this.party = party;
         this.address = address;
     }
@@ -49,20 +49,20 @@ public class MyPartiesModel implements Parcelable {
         this.address = source.readString();
     }
 
-    protected MyPartiesModel(Parcel in) {
+    protected PartyModel(Parcel in) {
         this.party = in.readString();
         this.address = in.readString();
     }
 
-    public static final Parcelable.Creator<MyPartiesModel> CREATOR = new Parcelable.Creator<MyPartiesModel>() {
+    public static final Parcelable.Creator<PartyModel> CREATOR = new Parcelable.Creator<PartyModel>() {
         @Override
-        public MyPartiesModel createFromParcel(Parcel source) {
-            return new MyPartiesModel(source);
+        public PartyModel createFromParcel(Parcel source) {
+            return new PartyModel(source);
         }
 
         @Override
-        public MyPartiesModel[] newArray(int size) {
-            return new MyPartiesModel[size];
+        public PartyModel[] newArray(int size) {
+            return new PartyModel[size];
         }
     };
 }

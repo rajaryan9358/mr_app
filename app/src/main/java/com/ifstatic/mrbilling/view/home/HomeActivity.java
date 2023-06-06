@@ -11,15 +11,15 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ifstatic.mrbilling.comman.adapters.PartyAdapter;
+import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
 import com.ifstatic.mrbilling.databinding.ActivityHomeBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.view.add_party.AddPartyActivity;
 import com.ifstatic.mrbilling.view.create_transaction.CreateTransactionActivity;
-import com.ifstatic.mrbilling.view.home.adapters.MyPartiesAdapter;
-import com.ifstatic.mrbilling.view.home.adapters.RecentTransactionAdapter;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
-import com.ifstatic.mrbilling.view.home.viewmodel.HomeViewModel;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.view.party_detail.PartyDetailActivity;
 import com.ifstatic.mrbilling.view.view_all_party.ViewAllMyPartyActivity;
 import com.ifstatic.mrbilling.view.view_all_transaction.ViewAllTransactionActivity;
 
@@ -30,9 +30,9 @@ public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomeBinding binding;
     private HomeViewModel homeViewModel;
-    private MyPartiesAdapter myPartiesAdapter;
-    private RecentTransactionAdapter recentTransactionAdapter;
-    private List<MyPartiesModel> myPartiesModelList;
+    private PartyAdapter partyAdapter;
+    private TransactionAdapter transactionAdapter;
+    private List<PartyModel> partyModelList;
     private String currentMrNo ;
     private Dialog progressDialog;
 
@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("mr_no",String.valueOf(no));
-                bundle.putParcelableArrayList("party_data", (ArrayList<? extends Parcelable>) myPartiesModelList);
+                bundle.putParcelableArrayList("party_data", (ArrayList<? extends Parcelable>) partyModelList);
                 AppBoiler.navigateToActivity(HomeActivity.this, CreateTransactionActivity.class,bundle);
             }
         });
@@ -109,34 +109,41 @@ public class HomeActivity extends AppCompatActivity {
 
     private void getRecentTransactionFromServer(){
 
-        LiveData<List<RecentTransactionModel>> recentTransactionModelLiveData = homeViewModel.getRecentTransactionsFromRepository();
-        recentTransactionModelLiveData.observe(this, new Observer<List<RecentTransactionModel>>() {
+        LiveData<List<TransactionModel>> recentTransactionModelLiveData = homeViewModel.getRecentTransactionsFromRepository();
+        recentTransactionModelLiveData.observe(this, new Observer<List<TransactionModel>>() {
             @Override
-            public void onChanged(List<RecentTransactionModel> recentTransactionModels) {
-                if(recentTransactionModels == null){
+            public void onChanged(List<TransactionModel> transactionModels) {
+                if(transactionModels == null){
                     Toast.makeText(HomeActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                 if(recentTransactionModels.size() > 0){
-                     currentMrNo = recentTransactionModels.get(recentTransactionModels.size()-1).getMrNo();
+                 if(transactionModels.size() > 0){
+                     currentMrNo = transactionModels.get(transactionModels.size()-1).getMrNo();
                      System.out.println("================= CURRENT MR ========= "+currentMrNo);
                      binding.viewAllTransactionTextView.setVisibility(View.VISIBLE);
                 } else {
                     binding.viewAllTransactionTextView.setVisibility(View.GONE);
                 }
-                 notifyRecentTransactionAdapter(recentTransactionModels);
+                 notifyRecentTransactionAdapter(transactionModels);
             }
         });
-
     }
+
     private void setRecentTransactionAdapter() {
 
-        recentTransactionAdapter = new RecentTransactionAdapter(this);
-        binding.recentTransactionRecyclerView.setAdapter(recentTransactionAdapter);
+        transactionAdapter = new TransactionAdapter(this);
+        binding.recentTransactionRecyclerView.setAdapter(transactionAdapter);
+
+        transactionAdapter.initItemClickListener(new TransactionAdapter.TransactionListClickListener() {
+            @Override
+            public void onClickItem(TransactionModel model, int position) {
+
+            }
+        });
     }
 
-    private void notifyRecentTransactionAdapter(List<RecentTransactionModel> recentTransactionModelList){
-        recentTransactionAdapter.notifyItemChanged(recentTransactionModelList);
+    private void notifyRecentTransactionAdapter(List<TransactionModel> transactionModelList){
+        transactionAdapter.notifyListItemChanged(transactionModelList);
     }
 
 
@@ -144,21 +151,21 @@ public class HomeActivity extends AppCompatActivity {
 
     private void getMyPartiesFromServer(){
 
-        LiveData<List<MyPartiesModel>> myPartiesModelListLiveData = homeViewModel.getPartiesModelListFromRepository();
-        myPartiesModelListLiveData.observe(this, new Observer<List<MyPartiesModel>>() {
+        LiveData<List<PartyModel>> myPartiesModelListLiveData = homeViewModel.getPartiesModelListFromRepository();
+        myPartiesModelListLiveData.observe(this, new Observer<List<PartyModel>>() {
             @Override
-            public void onChanged(List<MyPartiesModel> myPartiesModels) {
+            public void onChanged(List<PartyModel> partyModels) {
 
                 progressDialog.dismiss();
 
-                if(myPartiesModels.size() >0){
+                if(partyModels.size() >0){
                     binding.noPartiesFoundTextView.setVisibility(View.GONE);
                     binding.viewAllPartyTextView.setVisibility(View.VISIBLE);
                 } else {
                     binding.noPartiesFoundTextView.setVisibility(View.VISIBLE);
                     binding.viewAllPartyTextView.setVisibility(View.GONE);
                 }
-                myPartiesModelList = myPartiesModels;
+                partyModelList = partyModels;
                 notifyPartiesAdapter();
             }
         });
@@ -166,19 +173,22 @@ public class HomeActivity extends AppCompatActivity {
 
     private void setMyPartiesAdapter(){
 
-        myPartiesAdapter = new MyPartiesAdapter(this);
-        binding.myPartiesRecyclerView.setAdapter(myPartiesAdapter);
+        partyAdapter = new PartyAdapter(this);
+        binding.myPartiesRecyclerView.setAdapter(partyAdapter);
 
-        myPartiesAdapter.initClickListener(new MyPartiesAdapter.ItemClickListener() {
+        partyAdapter.initItemClickListener(new PartyAdapter.PartyItemClickListener() {
             @Override
-            public void onClickItem(int position, MyPartiesModel model) {
+            public void onClickItem(int position, PartyModel model) {
 
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("party_data",model);
+                AppBoiler.navigateToActivity(HomeActivity.this, PartyDetailActivity.class,bundle);
             }
         });
     }
 
     private void notifyPartiesAdapter() {
-        myPartiesAdapter.notifyListIsChanged(myPartiesModelList);
+        partyAdapter.notifyListIsChanged(partyModelList);
     }
 
 }

@@ -8,21 +8,21 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.View;
 
+import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
 import com.ifstatic.mrbilling.databinding.ActivityPartyDetailsBinding;
-import com.ifstatic.mrbilling.view.home.adapters.RecentTransactionAdapter;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 
 import java.util.List;
 
 
-public class PartyDetailsActivity extends AppCompatActivity {
+public class PartyDetailActivity extends AppCompatActivity {
 
     private ActivityPartyDetailsBinding binding;
 
-    private MyPartiesModel myPartiesModel;
+    private PartyModel partyModel;
     private PartyDetailViewModel partyDetailViewModel;
-    private RecentTransactionAdapter recentTransactionAdapter;
+    private TransactionAdapter transactionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class PartyDetailsActivity extends AppCompatActivity {
     private void getBundles() {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            myPartiesModel = bundle.getParcelable("party_data");
+            partyModel = bundle.getParcelable("party_data");
         }
     }
 
@@ -50,8 +50,8 @@ public class PartyDetailsActivity extends AppCompatActivity {
         partyDetailViewModel = new ViewModelProvider(this).get(PartyDetailViewModel.class);
 
         binding.header.titleTextView.setText("Party Details");
-        binding.addressTextView.setText(myPartiesModel.getAddress());
-        binding.partyNameTextView.setText(myPartiesModel.getParty());
+        binding.addressTextView.setText(partyModel.getAddress());
+        binding.partyNameTextView.setText(partyModel.getParty());
 
         binding.headerRecentTransaction.partyTextView.setVisibility(View.GONE);
     }
@@ -68,21 +68,21 @@ public class PartyDetailsActivity extends AppCompatActivity {
 
     private void getTransactionOfPartyFromViewModel(){
 
-        LiveData<List<RecentTransactionModel>> transactionLiveData = partyDetailViewModel.getTransactionListFromRepository(myPartiesModel.getParty());
-        transactionLiveData.observe(this, new Observer<List<RecentTransactionModel>>() {
+        LiveData<List<TransactionModel>> transactionLiveData = partyDetailViewModel.getTransactionListFromRepository(partyModel.getParty());
+        transactionLiveData.observe(this, new Observer<List<TransactionModel>>() {
             @Override
-            public void onChanged(List<RecentTransactionModel> recentTransactionModelList) {
-                notifyAdapter(recentTransactionModelList);
+            public void onChanged(List<TransactionModel> transactionModelList) {
+                notifyAdapter(transactionModelList);
             }
         });
     }
 
     private void setAdapterForTransaction(){
-        recentTransactionAdapter = new RecentTransactionAdapter(this);
-        binding.partyDetailRecyclerView.setAdapter(recentTransactionAdapter);
+        transactionAdapter = new TransactionAdapter(this);
+        binding.partyDetailRecyclerView.setAdapter(transactionAdapter);
     }
 
-    private void notifyAdapter(List<RecentTransactionModel> recentTransactionModelList){
-        recentTransactionAdapter.notifyItemChanged(recentTransactionModelList);
+    private void notifyAdapter(List<TransactionModel> transactionModelList){
+        transactionAdapter.notifyListItemChanged(transactionModelList);
     }
 }

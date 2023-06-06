@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.utilities.AppConstants;
-import com.ifstatic.mrbilling.view.create_transaction.models.CreateTransactionModel;
 
 
 public class CreateTransactionRepository {
 
-    public MutableLiveData<String> addTransactionToServer(CreateTransactionModel model){
+    public MutableLiveData<String> addTransactionToServer(TransactionModel model){
 
         MutableLiveData<String> responseMutableLiveData = new MutableLiveData<>();
 

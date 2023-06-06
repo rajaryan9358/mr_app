@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 
 import java.util.List;
 
 public class PartyDetailViewModel extends ViewModel {
 
     private PartyDetailRepository partyDetailRepository = new PartyDetailRepository();
-    private MutableLiveData<List<RecentTransactionModel>> transactionListMutableLiveData;
+    private MutableLiveData<List<TransactionModel>> transactionListMutableLiveData;
 
-    public LiveData<List<RecentTransactionModel>> getTransactionListFromRepository(String partyName){
+    public LiveData<List<TransactionModel>> getTransactionListFromRepository(String partyName){
 
         if(transactionListMutableLiveData == null){
             transactionListMutableLiveData = partyDetailRepository.getTransactionFromServer(partyName);

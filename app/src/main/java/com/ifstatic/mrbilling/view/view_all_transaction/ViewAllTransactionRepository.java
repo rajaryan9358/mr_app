@@ -8,16 +8,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.utilities.Validation;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAllTransactionRepository {
-
 
     private DatabaseReference databaseReference;
     private final int dataLimitAtTime = 1;
@@ -27,15 +25,15 @@ public class ViewAllTransactionRepository {
         databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
     }
 
-    public MutableLiveData<List<RecentTransactionModel>> getTransactionFromServer(){
+    public MutableLiveData<List<TransactionModel>> getTransactionFromServer(){
 
         System.out.println("=========NODE ID ========== "+nodeId);
 
-        MutableLiveData<List<RecentTransactionModel>> allTransactionListMutableLiveData = new MutableLiveData<>();
+        MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData = new MutableLiveData<>();
 
         Query query ;
         if(Validation.isStringEmpty(nodeId)){
-            query = databaseReference.child("Party").orderByKey().limitToFirst(dataLimitAtTime);
+            query = databaseReference.child("Transaction").orderByKey().limitToFirst(dataLimitAtTime);
             System.out.println("========= null node ======== ");
         }
         else{
@@ -47,13 +45,13 @@ public class ViewAllTransactionRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                List<RecentTransactionModel> modelList = new ArrayList<>();
+                List<TransactionModel> modelList = new ArrayList<>();
 
                 if(snapshot.exists()){
 
                     for(DataSnapshot nodeSnapshot : snapshot.getChildren()){
 
-                        RecentTransactionModel model = nodeSnapshot.getValue(RecentTransactionModel.class);
+                        TransactionModel model = nodeSnapshot.getValue(TransactionModel.class);
                         modelList.add(model);
 
                         nodeId = nodeSnapshot.getKey();

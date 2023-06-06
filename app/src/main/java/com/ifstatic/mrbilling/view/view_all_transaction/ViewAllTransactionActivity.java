@@ -7,23 +7,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllTransactionBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
-import com.ifstatic.mrbilling.view.home.adapters.MyPartiesAdapter;
-import com.ifstatic.mrbilling.view.home.adapters.RecentTransactionAdapter;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
-import com.ifstatic.mrbilling.view.party_detail.PartyDetailsActivity;
-import com.ifstatic.mrbilling.view.view_all_party.ViewAllMyPartyActivity;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.view.transaction_detail.TransactionDetailActivity;
 
 import java.util.List;
 
 public class ViewAllTransactionActivity extends AppCompatActivity {
 
     private ActivityViewAllTransactionBinding binding;
-    private RecentTransactionAdapter recentTransactionAdapter;
-    private List<RecentTransactionModel> recentTransactionModelList;
-
+    private TransactionAdapter transactionAdapter;
+    private List<TransactionModel> transactionModelList;
     private ViewAllTransactionViewModel viewAllTransactionViewModel;
 
 
@@ -33,15 +29,18 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
         binding = ActivityViewAllTransactionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        initViews();
         initListeners();
         setTransactionAdapter();
 
-        notifyRecentTransactionAdapter(recentTransactionModelList);
+        notifyRecentTransactionAdapter(transactionModelList);
+    }
+
+    private void initViews() {
+        binding.header.titleTextView.setText("All Transactions");
     }
 
     private void initListeners() {
-
-        binding.header.titleTextView.setText("All Transactions");
 
         binding.header.backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,20 +49,16 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             }
         });
     }
-    private void getTransactionFromViewModel(boolean isCalledFirstTime){
 
-        LiveData<List<RecentTransactionModel>> viewAllTransactionLiveData = viewAllTransactionViewModel.getTransactionFromRepository(isCalledFirstTime);
-        viewAllTransactionLiveData.observe(this, new Observer<List<RecentTransactionModel>>() {
+
+    private void getTransactionFromViewModel(){
+
+        LiveData<List<TransactionModel>> viewAllTransactionLiveData = viewAllTransactionViewModel.getTransactionFromRepository();
+        viewAllTransactionLiveData.observe(this, new Observer<List<TransactionModel>>() {
             @Override
-            public void onChanged(List<RecentTransactionModel> recentTransactionModels) {
+            public void onChanged(List<TransactionModel> transactionModels) {
 
-                if(recentTransactionModels == null){
-                    System.out.println("=========== NULLABLE ============ ");
-                    return;
-                } else if(!isCalledFirstTime){
-                    viewAllTransactionViewModel.updateMutableListLiveData(recentTransactionModels);
-                }
-                notifyRecentTransactionAdapter(recentTransactionModels);
+
             }
         });
     }
@@ -71,14 +66,22 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
 
     private void setTransactionAdapter() {
 
-        recentTransactionAdapter = new RecentTransactionAdapter(this);
-        binding.recentTransactionRecyclerView.setAdapter(recentTransactionAdapter);
+        transactionAdapter = new TransactionAdapter(this);
+        binding.recentTransactionRecyclerView.setAdapter(transactionAdapter);
 
+        transactionAdapter.initItemClickListener(new TransactionAdapter.TransactionListClickListener() {
+            @Override
+            public void onClickItem(TransactionModel model, int position) {
 
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("transaction_data",model);
+                AppBoiler.navigateToActivity(ViewAllTransactionActivity.this, TransactionDetailActivity.class,bundle);
+
+            }
+        });
     }
 
-    private void notifyRecentTransactionAdapter(List<RecentTransactionModel> recentTransactionModelList) {
-        recentTransactionAdapter.notifyItemChanged(recentTransactionModelList);
+    private void notifyRecentTransactionAdapter(List<TransactionModel> transactionModelList) {
+        transactionAdapter.notifyListItemChanged(transactionModelList);
     }
-
 }

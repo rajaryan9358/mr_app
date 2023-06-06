@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.databinding.ActivityAddPartyBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.utilities.AppConstants;
@@ -123,8 +124,8 @@ public class AddPartyActivity extends AppCompatActivity {
 
         progressDialog = AppBoiler.setProgressDialog(this);
 
-        AddPartyModel addPartyModel = new AddPartyModel(party,address);
-        LiveData<String> responseLiveData = addPartyViewModel.addPartyResponseLiveData(addPartyModel);
+        PartyModel partyModel = new PartyModel(party,address);
+        LiveData<String> responseLiveData = addPartyViewModel.addPartyResponseLiveData(partyModel);
 
         responseLiveData.observe(this, new Observer<String>() {
             @Override

@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
 
 import java.util.List;
 
 public class ViewAllPartyViewModel extends ViewModel {
 
     private ViewAllPartyRepository viewAllPartyRepository = new ViewAllPartyRepository();
-    private MutableLiveData<List<MyPartiesModel>> myPartiesListLiveData ;
+    private MutableLiveData<List<PartyModel>> myPartiesListLiveData ;
 
-    public LiveData<List<MyPartiesModel>> getPartiesFromRepository(){
+    public LiveData<List<PartyModel>> getPartiesFromRepository(){
 
             if(myPartiesListLiveData == null){
                 myPartiesListLiveData = viewAllPartyRepository.getPartiesFromServer();
@@ -21,15 +21,15 @@ public class ViewAllPartyViewModel extends ViewModel {
         return myPartiesListLiveData;
     }
 
-    public void updateMutableListLiveData(List<MyPartiesModel> myPartiesModelList){
+    public void updateMutableListLiveData(List<PartyModel> partyModelList){
 
-        List<MyPartiesModel> modelList = myPartiesListLiveData.getValue();
+        List<PartyModel> modelList = myPartiesListLiveData.getValue();
 
-        modelList.addAll(myPartiesModelList);
+        modelList.addAll(partyModelList);
         myPartiesListLiveData.setValue(modelList);
     }
 
-    public LiveData<List<MyPartiesModel>> getPartiesFromRepositoryAgain(){
+    public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain(){
         return viewAllPartyRepository.getPartiesFromServer();
     }
 }

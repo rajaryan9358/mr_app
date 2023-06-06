@@ -25,14 +25,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ifstatic.mrbilling.R;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.databinding.ActivityCreateTransactionBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.utilities.AppConstants;
 import com.ifstatic.mrbilling.utilities.DateFormat;
 import com.ifstatic.mrbilling.utilities.Validation;
 import com.ifstatic.mrbilling.view.create_transaction.models.ChequeDetailModel;
-import com.ifstatic.mrbilling.view.create_transaction.models.CreateTransactionModel;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
     private CreateTransactionViewModel createTransactionViewModel;
     private Dialog progressDialog;
     private String party, amount, paymentMode;
-    private List<MyPartiesModel> myPartiesModelList;
+    private List<PartyModel> partyModelList;
     private String currentMrNo;
 
     @Override
@@ -62,11 +62,11 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            myPartiesModelList = bundle.getParcelableArrayList("party_data");
+            partyModelList = bundle.getParcelableArrayList("party_data");
             currentMrNo = bundle.getString("mr_no");
 
             binding.mrNoTextView.setText("#"+currentMrNo);
-            if(myPartiesModelList != null){
+            if(partyModelList != null){
                 setPartyDataToSpinner();
             }
         }
@@ -78,8 +78,8 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
         ArrayList<String> partyList = new ArrayList<>();
 
-        for (int i = 0; i < myPartiesModelList.size(); i++) {
-            partyList.add(myPartiesModelList.get(i).getParty());
+        for (int i = 0; i < partyModelList.size(); i++) {
+            partyList.add(partyModelList.get(i).getParty());
         }
         partyList.add(0,"Select Party");
 
@@ -146,7 +146,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
                     if(position!=0){
                         party = adapterView.getSelectedItem().toString();
-                        binding.addressTextView.setText(myPartiesModelList.get(position-1).getAddress());
+                        binding.addressTextView.setText(partyModelList.get(position-1).getAddress());
                     }
 
                 }
@@ -237,7 +237,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
                 } else {
 
-                    CreateTransactionModel createTransactionModel = new CreateTransactionModel(party,amount,paymentMode, DateFormat.getCurrentDate(),currentMrNo);
+                    TransactionModel transactionModel = new TransactionModel(currentMrNo,party,paymentMode, amount ,DateFormat.getCurrentDate());
 
                     switch (paymentMode){
                         case "Cheque" :
@@ -249,18 +249,18 @@ public class CreateTransactionActivity extends AppCompatActivity {
                             if(isChequeDetailValidate(date,bankName,chequeNo)) {
 
                             ChequeDetailModel chequeDetailModel = new ChequeDetailModel(date,bankName,chequeNo);
-                            createTransactionModel.setChequeDetail(chequeDetailModel);
+                            transactionModel.setChequeDetail(chequeDetailModel);
 
-                            createTransactionToServer(createTransactionModel);
+                            createTransactionToServer(transactionModel);
                            }
                            break;
-                        case "Online": createTransactionToServer(createTransactionModel);
+                        case "Online": createTransactionToServer(transactionModel);
                             break;
-                        case "UPI":createTransactionToServer(createTransactionModel);
+                        case "UPI":createTransactionToServer(transactionModel);
                             break;
-                        case "Cash": createTransactionToServer(createTransactionModel);
+                        case "Cash": createTransactionToServer(transactionModel);
                             break;
-                        case "Credit or Debit": createTransactionToServer(createTransactionModel);
+                        case "Credit or Debit": createTransactionToServer(transactionModel);
                             break;
                     }
                 }
@@ -275,13 +275,13 @@ public class CreateTransactionActivity extends AppCompatActivity {
         });
     }
 
-    private void createTransactionToServer(CreateTransactionModel createTransactionModel) {
+    private void createTransactionToServer(TransactionModel transactionModel) {
 
         if (AppBoiler.isInternetConnected(CreateTransactionActivity.this)) {
 
             progressDialog = AppBoiler.setProgressDialog(this);
 
-            LiveData<String> responseLiveData = createTransactionViewModel.createTransactionToServer(createTransactionModel);
+            LiveData<String> responseLiveData = createTransactionViewModel.createTransactionToServer(transactionModel);
             responseLiveData.observe(this, new Observer<String>() {
                 @Override
                 public void onChanged(String s) {

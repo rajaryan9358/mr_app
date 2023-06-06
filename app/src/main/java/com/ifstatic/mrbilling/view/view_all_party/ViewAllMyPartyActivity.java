@@ -4,29 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Parcelable;
 import android.view.View;
 
-import com.ifstatic.mrbilling.R;
+import com.ifstatic.mrbilling.comman.adapters.PartyAdapter;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllMyPartyBinding;
-import com.ifstatic.mrbilling.databinding.ActivityViewAllTransactionBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
-import com.ifstatic.mrbilling.view.home.adapters.MyPartiesAdapter;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
-import com.ifstatic.mrbilling.view.party_detail.PartyDetailsActivity;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
+import com.ifstatic.mrbilling.view.party_detail.PartyDetailActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAllMyPartyActivity extends AppCompatActivity {
 
     private ActivityViewAllMyPartyBinding binding;
     private ViewAllPartyViewModel viewAllPartyViewModel;
-    private MyPartiesAdapter myPartiesAdapter;
+    private PartyAdapter partyAdapter;
 
+    private boolean isDataFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,54 +49,84 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
         binding.header.backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPartyAgainFromViewModel();
-                //finish();
+                finish();
+            }
+        });
+
+
+        /* ======== Finding last item of recycler view for calling api again for data ====== */
+        binding.myPartiesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisible = layoutManager.findLastVisibleItemPosition();
+
+                boolean endHasBeenReached = lastVisible+1 >= totalItemCount;
+                System.out.println("========= "+lastVisible+"     "+totalItemCount+"     "+endHasBeenReached);
+
+                if (totalItemCount > 0 && endHasBeenReached) {
+
+                    if(isDataFound){
+                        getPartyAgainFromViewModel();
+                        isDataFound = false;
+                        System.out.println("===== LAST ITEM OF RECYCLER VIEW ========== ");
+                    }
+                }
             }
         });
     }
 
     private void getPartyFromViewModel(){
 
-        LiveData<List<MyPartiesModel>> myPartiesLiveData = viewAllPartyViewModel.getPartiesFromRepository();
-        myPartiesLiveData.observe(this, new Observer<List<MyPartiesModel>>() {
+        LiveData<List<PartyModel>> myPartiesLiveData = viewAllPartyViewModel.getPartiesFromRepository();
+        myPartiesLiveData.observe(this, new Observer<List<PartyModel>>() {
             @Override
-            public void onChanged(List<MyPartiesModel> myPartiesModels) {
+            public void onChanged(List<PartyModel> partyModels) {
 
-                if(myPartiesModels == null){
+                isDataFound = true;
+
+                if(partyModels == null){
                     System.out.println("=========== NULLABLE ============ ");
                     return;
+                } if(partyModels.size() == 0){
+                    binding.noPartiesFoundTextView.setVisibility(View.VISIBLE);
+                } else {
+                    binding.noPartiesFoundTextView.setVisibility(View.GONE);
                 }
-                notifyAdapter(myPartiesModels);
+                notifyAdapter(partyModels);
             }
         });
     }
 
-    private void setPartyAdapter(){
-        myPartiesAdapter = new MyPartiesAdapter(this);
-        binding.myPartiesRecyclerView.setAdapter(myPartiesAdapter);
+    private void setPartyAdapter() {
+        partyAdapter = new PartyAdapter(this);
+        binding.myPartiesRecyclerView.setAdapter(partyAdapter);
 
-        myPartiesAdapter.initClickListener(new MyPartiesAdapter.ItemClickListener() {
+        partyAdapter.initItemClickListener(new PartyAdapter.PartyItemClickListener() {
             @Override
-            public void onClickItem(int position,MyPartiesModel model) {
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("party_data",model);
+            public void onClickItem(int position, PartyModel model) {
 
-                AppBoiler.navigateToActivity(ViewAllMyPartyActivity.this, PartyDetailsActivity.class,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("party_data", model);
+                AppBoiler.navigateToActivity(ViewAllMyPartyActivity.this, PartyDetailActivity.class, bundle);
+
             }
         });
     }
 
-    private void notifyAdapter(List<MyPartiesModel> myPartiesModelList) {
-        myPartiesAdapter.notifyListIsChanged(myPartiesModelList);
+    private void notifyAdapter(List<PartyModel> partyModelList) {
+        partyAdapter.notifyListIsChanged(partyModelList);
     }
 
     private void getPartyAgainFromViewModel(){
 
-        LiveData<List<MyPartiesModel>> myPartiesLiveData = viewAllPartyViewModel.getPartiesFromRepositoryAgain();
-        myPartiesLiveData.observe(this, new Observer<List<MyPartiesModel>>() {
+        LiveData<List<PartyModel>> myPartiesLiveData = viewAllPartyViewModel.getPartiesFromRepositoryAgain();
+        myPartiesLiveData.observe(this, new Observer<List<PartyModel>>() {
             @Override
-            public void onChanged(List<MyPartiesModel> myPartiesModelList) {
-                viewAllPartyViewModel.updateMutableListLiveData(myPartiesModelList);
+            public void onChanged(List<PartyModel> partyModelList) {
+                viewAllPartyViewModel.updateMutableListLiveData(partyModelList);
             }
         });
     }

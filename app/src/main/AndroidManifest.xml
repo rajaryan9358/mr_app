@@ -14,12 +14,12 @@
         android:theme="@style/Theme.MRBilling"
         tools:targetApi="31">
         <activity
-            android:name=".view.home.TestActivity"
+            android:name=".TestActivity"
             android:exported="true" >
 
         </activity>
         <activity
-            android:name=".view.party_detail.PartyDetailsActivity"
+            android:name=".view.party_detail.PartyDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.transaction_detail.TransactionDetailActivity"

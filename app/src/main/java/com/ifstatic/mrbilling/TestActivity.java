@@ -1,12 +1,10 @@
-package com.ifstatic.mrbilling.view.home;
+package com.ifstatic.mrbilling;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.ifstatic.mrbilling.databinding.ActivityTestBinding;

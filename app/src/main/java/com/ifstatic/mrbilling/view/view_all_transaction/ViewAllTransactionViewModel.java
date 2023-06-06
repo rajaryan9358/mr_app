@@ -3,33 +3,34 @@ package com.ifstatic.mrbilling.view.view_all_transaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
+
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 
 import java.util.List;
 
 public class ViewAllTransactionViewModel extends ViewModel {
+
     private ViewAllTransactionRepository viewAllTransactionRepository = new ViewAllTransactionRepository();
-    private MutableLiveData<List<RecentTransactionModel>> allTransactionListMutableLiveData ;
+    private MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData ;
 
-    public LiveData<List<RecentTransactionModel>> getTransactionFromRepository(boolean isCalledFirstTime){
-
-        if(isCalledFirstTime){
+    public LiveData<List<TransactionModel>> getTransactionFromRepository(){
 
             if(allTransactionListMutableLiveData == null){
                 allTransactionListMutableLiveData = viewAllTransactionRepository.getTransactionFromServer();
             }
-        } else {
-            updateMutableListLiveData(viewAllTransactionRepository.getTransactionFromServer().getValue());
-        }
         return allTransactionListMutableLiveData;
     }
 
-    public void updateMutableListLiveData(List<RecentTransactionModel> allTransactionModelList){
+    public void updateMutableListLiveData(List<TransactionModel> allTransactionModelList){
 
-        List<RecentTransactionModel> modelList = allTransactionListMutableLiveData.getValue();
+        List<TransactionModel> modelList = allTransactionListMutableLiveData.getValue();
 
         assert modelList!=null;
         modelList.addAll(allTransactionModelList);
         allTransactionListMutableLiveData.setValue(modelList);
+    }
+
+    public LiveData<List<TransactionModel>> getTransactionsFromRepositoryAgain(){
+        return viewAllTransactionRepository.getTransactionFromServer();
     }
 }

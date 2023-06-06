@@ -1,11 +1,11 @@
-package com.ifstatic.mrbilling.view.home.viewmodel;
+package com.ifstatic.mrbilling.view.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
-import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
-import com.ifstatic.mrbilling.view.home.repo.HomeRepository;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.view.home.HomeRepository;
 
 import java.util.List;
 
@@ -13,10 +13,10 @@ public class HomeViewModel extends ViewModel {
 
     private final HomeRepository repository = new HomeRepository();
 
-    private LiveData<List<MyPartiesModel>> myPartiesListLiveData;
-    private LiveData<List<RecentTransactionModel>> recentTransactionListLiveData;
+    private LiveData<List<PartyModel>> myPartiesListLiveData;
+    private LiveData<List<TransactionModel>> recentTransactionListLiveData;
 
-    public LiveData<List<MyPartiesModel>> getPartiesModelListFromRepository(){
+    public LiveData<List<PartyModel>> getPartiesModelListFromRepository(){
 
         if(myPartiesListLiveData == null){
             myPartiesListLiveData =  repository.getMyPartiesFromServer();
@@ -24,7 +24,7 @@ public class HomeViewModel extends ViewModel {
         return myPartiesListLiveData;
     }
 
-    public LiveData<List<RecentTransactionModel>> getRecentTransactionsFromRepository(){
+    public LiveData<List<TransactionModel>> getRecentTransactionsFromRepository(){
 
         if(recentTransactionListLiveData == null){
             recentTransactionListLiveData =  repository.getRecentTransactionsFromServer();

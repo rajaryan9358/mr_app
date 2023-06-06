@@ -1,7 +1,6 @@
 package com.ifstatic.mrbilling.view.view_all_party;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,7 +10,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.utilities.Validation;
-import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +18,18 @@ import java.util.List;
 public class ViewAllPartyRepository {
 
     private DatabaseReference databaseReference;
-    private final int dataLimitAtTime = 2;
+    private final int dataLimitAtTime = 20; // Data limit at a single time
     private String nodeId;
 
     public ViewAllPartyRepository(){
         databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
     }
 
-    public MutableLiveData<List<MyPartiesModel>> getPartiesFromServer(){
+    public MutableLiveData<List<PartyModel>> getPartiesFromServer(){
 
         System.out.println("=========NODE ID ========== "+nodeId);
 
-        MutableLiveData<List<MyPartiesModel>> myPartiesMutableLiveData = new MutableLiveData<>();
+        MutableLiveData<List<PartyModel>> myPartiesMutableLiveData = new MutableLiveData<>();
 
         Query query ;
 
@@ -47,13 +46,13 @@ public class ViewAllPartyRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                List<MyPartiesModel> modelList = new ArrayList<>();
+                List<PartyModel> modelList = new ArrayList<>();
 
                 if(snapshot.exists()){
 
                     for(DataSnapshot nodeSnapshot : snapshot.getChildren()){
 
-                        MyPartiesModel model = nodeSnapshot.getValue(MyPartiesModel.class);
+                        PartyModel model = nodeSnapshot.getValue(PartyModel.class);
                         modelList.add(model);
 
                         nodeId = nodeSnapshot.getKey();
