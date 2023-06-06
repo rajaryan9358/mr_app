@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.home.PartyDetailsActivity">
+    tools:context=".view.party_detail.PartyDetailsActivity">
 
     <include
         android:id="@+id/header"

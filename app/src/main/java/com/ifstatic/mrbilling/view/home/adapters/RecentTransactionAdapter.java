@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifstatic.mrbilling.R;
 import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
+import com.ifstatic.mrbilling.view.party_detail.PartyDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +52,24 @@ public class RecentTransactionAdapter extends RecyclerView.Adapter<RecentTransac
                 holder.itemView.setBackgroundColor(context.getColor(R.color.white));
             }
         }
-        holder.partyTextView.setText(model.getParty());
+
         holder.mrNoTextView.setText("#"+model.getMrNo());
         holder.dateAndTimeTextView.setText(model.getDate());
         holder.paymentTextView.setText(model.getPaymentMode());
         holder.amountTextView.setText(model.getAmount());
+
+        /*If adapter is called from party detail then hide party name */
+        if(!(context instanceof PartyDetailsActivity)){
+            holder.partyTextView.setText(model.getParty());
+        } else {
+            holder.partyTextView.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
     public int getItemCount() {
+        System.out.println("============Size==========="+recentTransactionModelList.size());
         return recentTransactionModelList.size();
     }
 

@@ -14,16 +14,21 @@
         android:theme="@style/Theme.MRBilling"
         tools:targetApi="31">
         <activity
-            android:name=".view.home.PartyDetailsActivity"
+            android:name=".view.home.TestActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".view.party_detail.PartyDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".view.home.TransactionDetailActivity"
+            android:name=".view.transaction_detail.TransactionDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".view.home.ViewAllMyPartyActivity"
+            android:name=".view.view_all_party.ViewAllMyPartyActivity"
             android:exported="false" />
         <activity
-            android:name=".view.home.ViewAllTransactionActivity"
+            android:name=".view.view_all_transaction.ViewAllTransactionActivity"
             android:exported="false" />
         <activity
             android:name=".view.create_transaction.CreateTransactionActivity"
@@ -34,11 +39,13 @@
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".view.home.HomeActivity"

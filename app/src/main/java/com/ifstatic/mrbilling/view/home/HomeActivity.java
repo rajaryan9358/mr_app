@@ -11,7 +11,6 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ifstatic.mrbilling.R;
 import com.ifstatic.mrbilling.databinding.ActivityHomeBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.view.add_party.AddPartyActivity;
@@ -21,6 +20,8 @@ import com.ifstatic.mrbilling.view.home.adapters.RecentTransactionAdapter;
 import com.ifstatic.mrbilling.view.home.models.MyPartiesModel;
 import com.ifstatic.mrbilling.view.home.models.RecentTransactionModel;
 import com.ifstatic.mrbilling.view.home.viewmodel.HomeViewModel;
+import com.ifstatic.mrbilling.view.view_all_party.ViewAllMyPartyActivity;
+import com.ifstatic.mrbilling.view.view_all_transaction.ViewAllTransactionActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -170,7 +171,7 @@ public class HomeActivity extends AppCompatActivity {
 
         myPartiesAdapter.initClickListener(new MyPartiesAdapter.ItemClickListener() {
             @Override
-            public void onClickItem(int position) {
+            public void onClickItem(int position, MyPartiesModel model) {
 
             }
         });

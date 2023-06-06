@@ -52,7 +52,7 @@ public class MyPartiesAdapter extends RecyclerView.Adapter<MyPartiesAdapter.MyPa
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemClickListener.onClickItem(position);
+                itemClickListener.onClickItem(position , model);
             }
         });
     }
@@ -76,6 +76,6 @@ public class MyPartiesAdapter extends RecyclerView.Adapter<MyPartiesAdapter.MyPa
     }
 
     public interface ItemClickListener {
-        void onClickItem(int position);
+        void onClickItem(int position ,MyPartiesModel model);
     }
 }

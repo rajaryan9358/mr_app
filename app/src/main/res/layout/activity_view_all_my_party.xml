@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.home.ViewAllMyPartyActivity">
+    tools:context=".view.view_all_party.ViewAllMyPartyActivity">
 
     <include
         android:id="@+id/header"
@@ -43,6 +43,8 @@
                     android:textSize="@dimen/_12ssp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/myPartiesRecyclerView"
