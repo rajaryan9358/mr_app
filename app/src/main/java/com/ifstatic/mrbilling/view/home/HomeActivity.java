@@ -20,6 +20,7 @@ import com.ifstatic.mrbilling.view.create_transaction.CreateTransactionActivity;
 import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.view.party_detail.PartyDetailActivity;
+import com.ifstatic.mrbilling.view.transaction_detail.TransactionDetailActivity;
 import com.ifstatic.mrbilling.view.view_all_party.ViewAllMyPartyActivity;
 import com.ifstatic.mrbilling.view.view_all_transaction.ViewAllTransactionActivity;
 
@@ -138,6 +139,9 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClickItem(TransactionModel model, int position) {
 
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("transaction_data",model);
+                AppBoiler.navigateToActivity(HomeActivity.this, TransactionDetailActivity.class,bundle);
             }
         });
     }

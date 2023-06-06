@@ -6,6 +6,9 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllTransactionBinding;
@@ -19,9 +22,9 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
 
     private ActivityViewAllTransactionBinding binding;
     private TransactionAdapter transactionAdapter;
-    private List<TransactionModel> transactionModelList;
     private ViewAllTransactionViewModel viewAllTransactionViewModel;
 
+    private boolean isDataFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +35,12 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
         initViews();
         initListeners();
         setTransactionAdapter();
-
-        notifyRecentTransactionAdapter(transactionModelList);
+        getTransactionFromViewModel();
     }
 
     private void initViews() {
         binding.header.titleTextView.setText("All Transactions");
+        viewAllTransactionViewModel = new ViewModelProvider(this).get(ViewAllTransactionViewModel.class);
     }
 
     private void initListeners() {
@@ -46,6 +49,29 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        /* ======== Finding last item of recycler view for calling api again for data ====== */
+        binding.recentTransactionRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisible = layoutManager.findLastVisibleItemPosition();
+
+                boolean endHasBeenReached = lastVisible+1 >= totalItemCount;
+                System.out.println("========= "+lastVisible+"     "+totalItemCount+"     "+endHasBeenReached);
+
+                if (totalItemCount > 0 && endHasBeenReached) {
+
+                    if(isDataFound){
+                        getAgainTransactionListFromViewModel();
+                        isDataFound = false;
+                        System.out.println("===== LAST ITEM OF RECYCLER VIEW ========== ");
+                    }
+                }
             }
         });
     }
@@ -58,7 +84,13 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<TransactionModel> transactionModels) {
 
+                isDataFound = true;
 
+                if(transactionModels == null){
+                    System.out.println("=========== NULLABLE ============ ");
+                    return;
+                }
+                notifyRecentTransactionAdapter(transactionModels);
             }
         });
     }
@@ -83,5 +115,16 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
 
     private void notifyRecentTransactionAdapter(List<TransactionModel> transactionModelList) {
         transactionAdapter.notifyListItemChanged(transactionModelList);
+    }
+
+    private void getAgainTransactionListFromViewModel(){
+
+        LiveData<List<TransactionModel>> viewAllTransactionLiveData = viewAllTransactionViewModel.getTransactionsFromRepositoryAgain();
+        viewAllTransactionLiveData.observe(this, new Observer<List<TransactionModel>>() {
+            @Override
+            public void onChanged(List<TransactionModel> transactionModelList) {
+                viewAllTransactionViewModel.updateMutableListLiveData(transactionModelList);
+            }
+        });
     }
 }

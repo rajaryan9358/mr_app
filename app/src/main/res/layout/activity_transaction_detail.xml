@@ -216,7 +216,6 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:fontFamily="@font/nunito_semibold"
-                        android:text="@string/_23_may_2023"
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintEnd_toEndOf="parent"

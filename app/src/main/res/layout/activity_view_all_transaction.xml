@@ -63,6 +63,7 @@
                 android:layout_height="match_parent"
                 android:inputType="date"
                 android:singleLine="true"
+                android:focusable="false"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:drawablePadding="@dimen/_4sdp"
                 android:textAppearance="@style/InputTextAppearance"
@@ -90,6 +91,7 @@
                 android:layout_height="match_parent"
                 android:inputType="date"
                 android:singleLine="true"
+                android:focusable="false"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:drawablePadding="@dimen/_4sdp"
                 android:textAppearance="@style/InputTextAppearance"
@@ -153,4 +155,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </LinearLayout>

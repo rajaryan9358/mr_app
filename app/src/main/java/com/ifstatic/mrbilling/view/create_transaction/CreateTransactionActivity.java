@@ -238,6 +238,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
                 } else {
 
                     TransactionModel transactionModel = new TransactionModel(currentMrNo,party,paymentMode, amount ,DateFormat.getCurrentDate());
+                    transactionModel.setAddress(binding.addressTextView.getText().toString().trim());
 
                     switch (paymentMode){
                         case "Cheque" :

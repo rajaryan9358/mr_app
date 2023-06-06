@@ -12,6 +12,7 @@ public class TransactionModel implements Parcelable {
     private String paymentMode ;
     private String amount;
     private String date;
+    private String address;
     private ChequeDetailModel chequeDetail;
 
     public TransactionModel() {
@@ -32,6 +33,14 @@ public class TransactionModel implements Parcelable {
 
     public void setParty(String party) {
         this.party = party;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public TransactionModel(String mrNo, String party, String paymentMode, String amount, String date) {
@@ -87,6 +96,7 @@ public class TransactionModel implements Parcelable {
         dest.writeString(this.paymentMode);
         dest.writeString(this.amount);
         dest.writeString(this.date);
+        dest.writeString(this.address);
         dest.writeParcelable((Parcelable) this.chequeDetail, flags);
     }
 
@@ -96,6 +106,7 @@ public class TransactionModel implements Parcelable {
         this.paymentMode = source.readString();
         this.amount = source.readString();
         this.date = source.readString();
+        this.address = source.readString();
         this.chequeDetail = source.readParcelable(ChequeDetailModel.class.getClassLoader());
     }
 
@@ -105,10 +116,11 @@ public class TransactionModel implements Parcelable {
         this.paymentMode = in.readString();
         this.amount = in.readString();
         this.date = in.readString();
+        this.address = in.readString();
         this.chequeDetail = in.readParcelable(ChequeDetailModel.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<TransactionModel> CREATOR = new Parcelable.Creator<TransactionModel>() {
+    public static final Creator<TransactionModel> CREATOR = new Creator<TransactionModel>() {
         @Override
         public TransactionModel createFromParcel(Parcel source) {
             return new TransactionModel(source);

@@ -18,7 +18,7 @@ import java.util.List;
 public class ViewAllTransactionRepository {
 
     private DatabaseReference databaseReference;
-    private final int dataLimitAtTime = 1;
+    private final int dataLimitAtTime = 20;
     private String nodeId;
 
     public ViewAllTransactionRepository(){
