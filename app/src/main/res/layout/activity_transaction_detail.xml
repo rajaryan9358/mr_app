@@ -242,7 +242,7 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/nunito_semibold"
-                        android:text="ICICI Bank"
+                        android:text=""
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -269,7 +269,7 @@
                         android:layout_marginLeft="@dimen/_4sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:fontFamily="@font/nunito_semibold"
-                        android:text="HSJSKJ727282JJSSS"
+                        android:text=""
                         android:textColor="@color/colorSecondary"
                         android:textSize="@dimen/_12ssp"
                         app:layout_constraintStart_toEndOf="@id/chequeNoLabelTextView"
@@ -285,7 +285,7 @@
                 android:id="@+id/printTransactionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginRight="@dimen/_4sdp"
                 android:drawableLeft="@drawable/ic_printer_"
                 android:drawablePadding="@dimen/_4sdp"
@@ -302,7 +302,6 @@
                 android:id="@+id/shareTransactionTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:drawableLeft="@drawable/ic_share"
                 android:drawablePadding="@dimen/_4sdp"
                 android:fontFamily="@font/nunito_bold"
@@ -312,7 +311,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/guideline_bottom"
                 app:layout_constraintEnd_toEndOf="@id/guideline_right"
                 app:layout_constraintStart_toEndOf="@id/printTransactionTextView"
-                app:layout_constraintTop_toBottomOf="@id/paymentDetailsLayout" />
+                app:layout_constraintTop_toTopOf="@id/printTransactionTextView" />
 
 
             <androidx.constraintlayout.widget.Guideline

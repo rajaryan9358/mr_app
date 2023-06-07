@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.ifstatic.mrbilling.comman.adapters.PartyAdapter;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllMyPartyBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.comman.models.PartyModel;
@@ -68,11 +71,56 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
 
                 if (totalItemCount > 0 && endHasBeenReached) {
 
-                    if(isDataFound){
+                     /* if searching is not activated then only get all data
+                       else shows only searched data list.
+                     */
+                    if(isDataFound && binding.searchPartyNameEditText.getText().toString().length()==0){
+
                         getPartyAgainFromViewModel();
                         isDataFound = false;
                         System.out.println("===== LAST ITEM OF RECYCLER VIEW ========== ");
                     }
+                }
+            }
+        });
+
+        binding.searchPartyNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String partyName = charSequence.toString().trim();
+
+                if(partyName.length()==0){
+                    getPartyFromViewModel();
+                } else {
+                    searchPartyFromServer(partyName);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void searchPartyFromServer(String partyName) {
+
+        LiveData<List<PartyModel>> selectedPartyListLiveData = viewAllPartyViewModel.getSelectedPartyFromRepository(partyName);
+        selectedPartyListLiveData.observe(this, new Observer<List<PartyModel>>() {
+            @Override
+            public void onChanged(List<PartyModel> partyModels) {
+
+                if(partyModels == null){
+                    return;
+                } else {
+                    partyAdapter.notifyListIsChanged(partyModels);
                 }
             }
         });

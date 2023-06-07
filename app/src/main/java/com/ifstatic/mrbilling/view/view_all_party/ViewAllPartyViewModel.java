@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ifstatic.mrbilling.comman.models.PartyModel;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 
 import java.util.List;
 
@@ -31,5 +32,9 @@ public class ViewAllPartyViewModel extends ViewModel {
 
     public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain(){
         return viewAllPartyRepository.getPartiesFromServer();
+    }
+
+    public LiveData<List<PartyModel>> getSelectedPartyFromRepository(String partyName){
+        return viewAllPartyRepository.getSelectedPartyFromServer(partyName);
     }
 }

@@ -69,8 +69,12 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
 
                 if (totalItemCount > 0 && endHasBeenReached) {
 
-                    if(isDataFound){
-                        //getAgainTransactionListFromViewModel();
+                    /* if searching is not activated then only get all data
+                       else shows only searched data list.
+                     */
+                    if(isDataFound && binding.searchPartyNameEditText.getText().toString().length()==0){
+
+                        getAgainTransactionListFromViewModel();
                         isDataFound = false;
                         System.out.println("===== LAST ITEM OF RECYCLER VIEW ========== ");
                     }
