@@ -74,7 +74,7 @@ public class ViewAllTransactionRepository {
 
         MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData = new MutableLiveData<>();
 
-        databaseReference.child("Transaction").orderByChild("party").startAt(partyName.toUpperCase()).endAt(partyName+"\uf8ff")
+        databaseReference.child("Transaction").orderByChild("party").startAt(partyName.toUpperCase()).endAt(partyName.toLowerCase()+"\uf8ff")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

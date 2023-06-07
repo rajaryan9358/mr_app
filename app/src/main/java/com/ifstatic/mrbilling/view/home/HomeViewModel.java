@@ -1,6 +1,7 @@
 package com.ifstatic.mrbilling.view.home;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ifstatic.mrbilling.comman.models.PartyModel;
@@ -13,7 +14,7 @@ public class HomeViewModel extends ViewModel {
 
     private final HomeRepository repository = new HomeRepository();
 
-    private LiveData<List<PartyModel>> myPartiesListLiveData;
+    private MutableLiveData<List<PartyModel>> myPartiesListLiveData;
     private LiveData<List<TransactionModel>> recentTransactionListLiveData;
 
     public LiveData<List<PartyModel>> getPartiesModelListFromRepository(){
@@ -26,6 +27,19 @@ public class HomeViewModel extends ViewModel {
         return myPartiesListLiveData;
     }
 
+    public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain(){
+        return repository.getPartiesFromServer();
+    }
+
+    public void updatePartyMutableListLiveData(List<PartyModel> partyModelList){
+
+        List<PartyModel> modelList = myPartiesListLiveData.getValue();
+
+        modelList.addAll(partyModelList);
+        myPartiesListLiveData.setValue(modelList);
+    }
+
+
     public LiveData<List<TransactionModel>> getRecentTransactionsFromRepository(){
 
         if(recentTransactionListLiveData == null){
@@ -33,5 +47,6 @@ public class HomeViewModel extends ViewModel {
         }
         return recentTransactionListLiveData;
     }
+
 
 }

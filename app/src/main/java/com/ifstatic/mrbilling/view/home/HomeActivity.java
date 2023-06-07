@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
     private List<PartyModel> partyModelList;
     private String currentMrNo ;
     private Dialog progressDialog;
+    private boolean isDataFound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +53,11 @@ public class HomeActivity extends AppCompatActivity {
         setMyPartiesAdapter();
         setRecentTransactionAdapter();
 
-        if(AppBoiler.isInternetConnected(this)){
 
             progressDialog = AppBoiler.setProgressDialog(this);
             getRecentTransactionFromServer();
             getMyPartiesFromServer();
 
-        } else {
-            AppBoiler.showSnackBarForInternet(this,binding.getRoot());
-        }
 
     }
 
@@ -82,6 +81,34 @@ public class HomeActivity extends AppCompatActivity {
                 bundle.putString("mr_no",String.valueOf(no));
                 bundle.putParcelableArrayList("party_data", (ArrayList<? extends Parcelable>) partyModelList);
                 AppBoiler.navigateToActivity(HomeActivity.this, CreateTransactionActivity.class,bundle);
+            }
+        });
+
+        /* ======== Finding last item of recycler view for calling api again for data ====== */
+        binding.myPartiesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisible = layoutManager.findLastVisibleItemPosition();
+
+                boolean endHasBeenReached = lastVisible+1 >= totalItemCount;
+                System.out.println("========= "+lastVisible+"     "+totalItemCount+"     "+endHasBeenReached);
+
+                if(lastVisible == totalItemCount -1 ){
+//                if (totalItemCount > 0 && endHasBeenReached) {
+
+                     /* if searching is not activated then only get all data
+                       else shows only searched data list.
+                     */
+                    if(isDataFound){
+
+                        getPartyAgainFromViewModel();
+                        isDataFound = false;
+                        System.out.println("===== LAST ITEM OF RECYCLER VIEW ========== ");
+                    }
+                }
             }
         });
 
@@ -160,6 +187,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<PartyModel> partyModels) {
 
+                isDataFound = true;
                 progressDialog.dismiss();
 
                 if(partyModels.size() >0){
@@ -195,4 +223,14 @@ public class HomeActivity extends AppCompatActivity {
         partyAdapter.notifyListIsChanged(partyModelList);
     }
 
+    private void getPartyAgainFromViewModel() {
+
+        LiveData<List<PartyModel>> myPartiesLiveData = homeViewModel.getPartiesFromRepositoryAgain();
+        myPartiesLiveData.observe(this, new Observer<List<PartyModel>>() {
+            @Override
+            public void onChanged(List<PartyModel> partyModelList) {
+                homeViewModel.updatePartyMutableListLiveData(partyModelList);
+            }
+        });
+    }
 }

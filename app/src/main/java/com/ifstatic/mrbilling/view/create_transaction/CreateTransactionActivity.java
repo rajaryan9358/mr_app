@@ -185,6 +185,42 @@ public class CreateTransactionActivity extends AppCompatActivity {
             }
         });
 
+        binding.dateUpiIdEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateFormat.getDateFromCalender(CreateTransactionActivity.this, new DateFormat.DateSelectListener() {
+                    @Override
+                    public void onSelectedDate(String date) {
+                        binding.dateUpiIdEditText.setText(date);
+                    }
+                });
+            }
+        });
+
+        binding.onlineDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateFormat.getDateFromCalender(CreateTransactionActivity.this, new DateFormat.DateSelectListener() {
+                    @Override
+                    public void onSelectedDate(String date) {
+                        binding.onlineDateEditText.setText(date);
+                    }
+                });
+            }
+        });
+
+        binding.dateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateFormat.getDateFromCalender(CreateTransactionActivity.this, new DateFormat.DateSelectListener() {
+                    @Override
+                    public void onSelectedDate(String date) {
+                        binding.dateEditText.setText(date);
+                    }
+                });
+            }
+        });
+
         binding.paymentRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
@@ -251,6 +287,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
                     transactionModel.setAddress(binding.addressTextView.getText().toString().trim());
 
                     switch (paymentMode){
+
                         case "Cheque" :
 
                             String date = binding.dateEditText.getText().toString().trim();
@@ -265,36 +302,40 @@ public class CreateTransactionActivity extends AppCompatActivity {
                             createTransactionToServer(transactionModel);
                            }
                            break;
+
                         case "Online":
 
-                            String dateReference = binding.dateReferenceIdEditText.getText().toString().trim();
-                            String refernceId = binding.referenceIdEditText.getText().toString().trim();
+                            String onlineDate = binding.onlineDateEditText.getText().toString().trim();
+                            String onlineReferenceId = binding.onlineReferenceIdEditText.getText().toString().trim();
 
-                            if(isUpiDetailValidate(refernceId,dateReference)) {
+                            if(isOnlineDetailValidate(onlineReferenceId,onlineDate)) {
 
-                                OnlineDetailModel onlineDetailModel = new OnlineDetailModel(refernceId, dateReference);
+                                OnlineDetailModel onlineDetailModel = new OnlineDetailModel(onlineReferenceId, onlineDate);
                                 transactionModel.setOnlineDetail(onlineDetailModel);
 
                                 createTransactionToServer(transactionModel);
-                                break;
                             }
-
                             break;
-                        case "UPI":
 
-                            String dateUpi = binding.dateUpiIdEditText.getText().toString().trim();
+                        case "UPI" :
+
+                            String upiDate = binding.dateUpiIdEditText.getText().toString().trim();
                             String upiId = binding.upiIdEditText.getText().toString().trim();
 
-                            if(isUpiDetailValidate(upiId,dateUpi)) {
+                            if(isUpiDetailValidate(upiId,upiDate)) {
 
-                                UpiDetailModel upiDetailModel = new UpiDetailModel(upiId, dateUpi);
+                                UpiDetailModel upiDetailModel = new UpiDetailModel(upiId, upiDate);
                                 transactionModel.setUpiDetail(upiDetailModel);
 
                                 createTransactionToServer(transactionModel);
-                                break;
                             }
-                        case "Cash": createTransactionToServer(transactionModel);
                             break;
+
+                        case "Cash":
+
+                            createTransactionToServer(transactionModel);
+                            break;
+
 //                        case "Credit or Debit": createTransactionToServer(transactionModel);
 //                            break;
                     }
@@ -336,6 +377,8 @@ public class CreateTransactionActivity extends AppCompatActivity {
         }
     }
 
+    /* =================================== VALIDATION ============================= */
+
     private boolean isChequeDetailValidate(String date , String bankName , String chequeNo){
 
         if(Validation.isStringEmpty(date)){
@@ -373,11 +416,29 @@ public class CreateTransactionActivity extends AppCompatActivity {
             binding.dateUpiIdEditText.requestFocus();
             return false;
 
-        } else{
+        } else {
             AppBoiler.setInputLayoutErrorDisable(binding.upiIdInputLayout);
             return true;
         }
 
     }
+
+    private boolean isOnlineDetailValidate(String referenceId , String date){
+
+        if(Validation.isStringEmpty(referenceId)){
+            binding.onlineReferenceIdInputLayout.setError("Enter Reference Id");
+            binding.onlineReferenceIdEditText.requestFocus();
+            return false;
+
+        } else if(Validation.isStringEmpty(date)){
+            binding.onlineDateInputLayout.setError("Enter Date");
+            binding.onlineDateEditText.requestFocus();
+            return false;
+
+        } else {
+            return true;
+        }
+    }
+
 
 }

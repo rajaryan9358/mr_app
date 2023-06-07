@@ -18,8 +18,7 @@ import java.util.List;
 
 public class HomeRepository {
 
-
-    private final int dataLimitAtTime = 20; // Data limit at a single time
+    private final int dataLimitAtTime = 20; // Parties Data limit at a single time
     private String nodeId;
     private DatabaseReference databaseReference;
 
@@ -60,7 +59,9 @@ public class HomeRepository {
     public MutableLiveData<List<TransactionModel>> getRecentTransactionsFromServer(){
 
         MutableLiveData<List<TransactionModel>> recentTransactionMutableLiveData = new MutableLiveData<>();
-        databaseReference.child("Transaction").addValueEventListener(new ValueEventListener() {
+
+        Query query = databaseReference.child("Transaction").orderByKey().limitToLast(3);
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

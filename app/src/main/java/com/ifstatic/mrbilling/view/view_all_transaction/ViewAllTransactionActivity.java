@@ -120,6 +120,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
                 if(partyName.length()==0){
                     getTransactionFromViewModel();
                 } else {
+                    binding.progressBarHorizontal.setVisibility(View.VISIBLE);
                     searchPartyFromServer(partyName);
                 }
             }
@@ -138,6 +139,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<TransactionModel> transactionModelList) {
 
+                binding.progressBarHorizontal.setVisibility(View.GONE);
                 if(transactionModelList == null){
                     return;
                 } else {

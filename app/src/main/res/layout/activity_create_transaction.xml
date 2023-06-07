@@ -191,6 +191,7 @@
                         android:layout_height="match_parent"
                         android:singleLine="true"
                         android:inputType="date"
+                        android:focusable="false"
                         android:textSize="@dimen/_12ssp"
                         android:textAppearance="@style/InputTextAppearance"
                         android:textColor="@color/colorSecondary" />
@@ -254,6 +255,7 @@
                 android:text="@string/online"
                 android:buttonTint="@color/colorPrimary"
                 android:textSize="@dimen/_12ssp" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/onlineDetailsConstraintLayout"
                 android:layout_width="match_parent"
@@ -263,7 +265,7 @@
                 android:layout_marginStart="@dimen/_28sdp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/referenceIdInputLayout"
+                    android:id="@+id/onlineReferenceIdInputLayout"
                     style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_48sdp"
@@ -275,7 +277,7 @@
                     app:shapeAppearance="@style/cornerRounded_TextInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/referenceIdEditText"
+                        android:id="@+id/onlineReferenceIdEditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:singleLine="true"
@@ -286,22 +288,24 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/dateReferenceIdInputLayout"
+                    android:id="@+id/onlineDateInputLayout"
                     style="@style/TextInputLayout"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_48sdp"
                     android:hint="@string/date"
+                    android:layout_marginTop="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/referenceIdInputLayout"
+                    app:layout_constraintTop_toBottomOf="@id/onlineReferenceIdInputLayout"
                     app:shapeAppearance="@style/cornerRounded_TextInputLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/dateReferenceIdEditText"
+                        android:id="@+id/onlineDateEditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:singleLine="true"
                         android:inputType="date"
+                        android:focusable="false"
                         android:textSize="@dimen/_12ssp"
                         android:textAppearance="@style/InputTextAppearance"
                         android:textColor="@color/colorSecondary" />
@@ -355,6 +359,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_48sdp"
                 android:hint="@string/date"
+                android:layout_marginTop="@dimen/_8sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/upiIdInputLayout"
@@ -366,6 +371,7 @@
                     android:layout_height="match_parent"
                     android:singleLine="true"
                     android:inputType="date"
+                    android:focusable="false"
                     android:textSize="@dimen/_12ssp"
                     android:textAppearance="@style/InputTextAppearance"
                     android:textColor="@color/colorSecondary" />

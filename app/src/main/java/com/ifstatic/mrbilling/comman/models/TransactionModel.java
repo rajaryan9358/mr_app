@@ -16,9 +16,7 @@ public class TransactionModel implements Parcelable {
     private String date;
     private String address;
     private ChequeDetailModel chequeDetail;
-
     private UpiDetailModel upiDetail;
-
     private OnlineDetailModel onlineDetail;
 
 
