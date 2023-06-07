@@ -51,12 +51,12 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.PartyViewHol
         holder.partyNameTextView.setText(model.getParty());
         holder.partyAddressTextView.setText(model.getAddress());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                partyItemClickListener.onClickItem(position, model);
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                partyItemClickListener.onClickItem(position, model);
+//            }
+//        });
     }
 
     @Override

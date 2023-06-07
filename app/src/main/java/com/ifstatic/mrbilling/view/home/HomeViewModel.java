@@ -19,7 +19,9 @@ public class HomeViewModel extends ViewModel {
     public LiveData<List<PartyModel>> getPartiesModelListFromRepository(){
 
         if(myPartiesListLiveData == null){
-            myPartiesListLiveData =  repository.getMyPartiesFromServer();
+          //  myPartiesListLiveData =  repository.getMyPartiesFromServer();
+            myPartiesListLiveData =  repository.getPartiesFromServer();
+
         }
         return myPartiesListLiveData;
     }

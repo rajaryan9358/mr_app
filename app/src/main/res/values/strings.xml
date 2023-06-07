@@ -63,4 +63,6 @@
     <string name="print_transaction">Print Transaction</string>
     <string name="share_transaction">Share Transaction</string>
     <string name="transactions">Transactions:</string>
+    <string name="upi_id">Enter UPI Id</string>
+    <string name="reference_id">Enter Reference Id</string>
 </resources>

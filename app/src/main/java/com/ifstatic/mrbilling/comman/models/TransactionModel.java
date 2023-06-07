@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.ifstatic.mrbilling.view.create_transaction.models.ChequeDetailModel;
+import com.ifstatic.mrbilling.view.create_transaction.models.OnlineDetailModel;
+import com.ifstatic.mrbilling.view.create_transaction.models.UpiDetailModel;
 
 public class TransactionModel implements Parcelable {
 
@@ -14,6 +16,11 @@ public class TransactionModel implements Parcelable {
     private String date;
     private String address;
     private ChequeDetailModel chequeDetail;
+
+    private UpiDetailModel upiDetail;
+
+    private OnlineDetailModel onlineDetail;
+
 
     public TransactionModel() {
     }
@@ -58,6 +65,21 @@ public class TransactionModel implements Parcelable {
     public void setChequeDetail(ChequeDetailModel chequeDetail) {
         this.chequeDetail = chequeDetail;
     }
+    public UpiDetailModel getUpiDetail() {
+        return upiDetail;
+    }
+
+    public void setUpiDetail(UpiDetailModel upiDetail) {
+        this.upiDetail = upiDetail;
+    }
+
+    public OnlineDetailModel getOnlineDetail() {
+        return onlineDetail;
+    }
+
+    public void setOnlineDetail(OnlineDetailModel onlineDetail) {
+        this.onlineDetail = onlineDetail;
+    }
 
     public String getPaymentMode() {
         return paymentMode;
@@ -98,6 +120,8 @@ public class TransactionModel implements Parcelable {
         dest.writeString(this.date);
         dest.writeString(this.address);
         dest.writeParcelable((Parcelable) this.chequeDetail, flags);
+        dest.writeParcelable((Parcelable) this.upiDetail,flags);
+        dest.writeParcelable((Parcelable) this.onlineDetail,flags);
     }
 
     public void readFromParcel(Parcel source) {
@@ -108,6 +132,8 @@ public class TransactionModel implements Parcelable {
         this.date = source.readString();
         this.address = source.readString();
         this.chequeDetail = source.readParcelable(ChequeDetailModel.class.getClassLoader());
+        this.upiDetail = source.readParcelable(UpiDetailModel.class.getClassLoader());
+        this.onlineDetail = source.readParcelable(OnlineDetailModel.class.getClassLoader());
     }
 
     protected TransactionModel(Parcel in) {
@@ -118,6 +144,8 @@ public class TransactionModel implements Parcelable {
         this.date = in.readString();
         this.address = in.readString();
         this.chequeDetail = in.readParcelable(ChequeDetailModel.class.getClassLoader());
+        this.upiDetail = in.readParcelable(UpiDetailModel.class.getClassLoader());
+        this.onlineDetail = in.readParcelable(OnlineDetailModel.class.getClassLoader());
     }
 
     public static final Creator<TransactionModel> CREATOR = new Creator<TransactionModel>() {

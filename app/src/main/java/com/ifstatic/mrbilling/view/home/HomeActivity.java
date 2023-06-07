@@ -85,24 +85,24 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        binding.addPartyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppBoiler.navigateToActivity(HomeActivity.this, AddPartyActivity.class,null);
-            }
-        });
-        binding.viewAllTransactionTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppBoiler.navigateToActivity(HomeActivity.this, ViewAllTransactionActivity.class,null);
-            }
-        });
-        binding.viewAllPartyTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AppBoiler.navigateToActivity(HomeActivity.this, ViewAllMyPartyActivity.class,null);
-            }
-        });
+//        binding.addPartyButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AppBoiler.navigateToActivity(HomeActivity.this, AddPartyActivity.class,null);
+//            }
+//        });
+//        binding.viewAllTransactionTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AppBoiler.navigateToActivity(HomeActivity.this, ViewAllTransactionActivity.class,null);
+//            }
+//        });
+//        binding.viewAllPartyTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AppBoiler.navigateToActivity(HomeActivity.this, ViewAllMyPartyActivity.class,null);
+//            }
+//        });
     }
 
 
@@ -121,9 +121,9 @@ public class HomeActivity extends AppCompatActivity {
                  if(transactionModels.size() > 0){
                      currentMrNo = transactionModels.get(transactionModels.size()-1).getMrNo();
                      System.out.println("================= CURRENT MR ========= "+currentMrNo);
-                     binding.viewAllTransactionTextView.setVisibility(View.VISIBLE);
+                    // binding.viewAllTransactionTextView.setVisibility(View.VISIBLE);
                 } else {
-                    binding.viewAllTransactionTextView.setVisibility(View.GONE);
+                   // binding.viewAllTransactionTextView.setVisibility(View.GONE);
                 }
                  notifyRecentTransactionAdapter(transactionModels);
             }
@@ -164,10 +164,10 @@ public class HomeActivity extends AppCompatActivity {
 
                 if(partyModels.size() >0){
                     binding.noPartiesFoundTextView.setVisibility(View.GONE);
-                    binding.viewAllPartyTextView.setVisibility(View.VISIBLE);
+                   // binding.viewAllPartyTextView.setVisibility(View.VISIBLE);
                 } else {
                     binding.noPartiesFoundTextView.setVisibility(View.VISIBLE);
-                    binding.viewAllPartyTextView.setVisibility(View.GONE);
+                  //  binding.viewAllPartyTextView.setVisibility(View.GONE);
                 }
                 partyModelList = partyModels;
                 notifyPartiesAdapter();
@@ -180,15 +180,15 @@ public class HomeActivity extends AppCompatActivity {
         partyAdapter = new PartyAdapter(this);
         binding.myPartiesRecyclerView.setAdapter(partyAdapter);
 
-        partyAdapter.initItemClickListener(new PartyAdapter.PartyItemClickListener() {
-            @Override
-            public void onClickItem(int position, PartyModel model) {
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("party_data",model);
-                AppBoiler.navigateToActivity(HomeActivity.this, PartyDetailActivity.class,bundle);
-            }
-        });
+//        partyAdapter.initItemClickListener(new PartyAdapter.PartyItemClickListener() {
+//            @Override
+//            public void onClickItem(int position, PartyModel model) {
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("party_data",model);
+//                AppBoiler.navigateToActivity(HomeActivity.this, PartyDetailActivity.class,bundle);
+//            }
+//        });
     }
 
     private void notifyPartiesAdapter() {

@@ -33,6 +33,8 @@ import com.ifstatic.mrbilling.utilities.DateFormat;
 import com.ifstatic.mrbilling.utilities.Validation;
 import com.ifstatic.mrbilling.view.create_transaction.models.ChequeDetailModel;
 import com.ifstatic.mrbilling.comman.models.PartyModel;
+import com.ifstatic.mrbilling.view.create_transaction.models.OnlineDetailModel;
+import com.ifstatic.mrbilling.view.create_transaction.models.UpiDetailModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,27 +197,35 @@ public class CreateTransactionActivity extends AppCompatActivity {
                     case R.id.chequeRadioButton:
                         paymentMode = "Cheque";
                         binding.chequeDetailsConstraintLayout.setVisibility(View.VISIBLE);
+                        binding.upiIdDetailsConstraintLayout.setVisibility(View.GONE);
+                        binding.onlineDetailsConstraintLayout.setVisibility(View.GONE);
                         break;
 
                     case R.id.onlineRadioButton:
                         paymentMode = "Online";
                         binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
+                        binding.upiIdDetailsConstraintLayout.setVisibility(View.GONE);
+                        binding.onlineDetailsConstraintLayout.setVisibility(View.VISIBLE);
                         break;
 
                     case R.id.UPIRadioButton:
                         paymentMode = "UPI";
                         binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
+                        binding.upiIdDetailsConstraintLayout.setVisibility(View.VISIBLE);
+                        binding.onlineDetailsConstraintLayout.setVisibility(View.GONE);
                         break;
 
                     case R.id.cashRadioButton:
                         paymentMode = "Cash";
                         binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
+                        binding.upiIdDetailsConstraintLayout.setVisibility(View.GONE);
+                        binding.onlineDetailsConstraintLayout.setVisibility(View.GONE);
                         break;
 
-                    case R.id.creditDebitRadioButton:
-                        paymentMode = "Credit or Debit";
-                        binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
-                        break;
+                  //  case R.id.creditDebitRadioButton:
+                       // paymentMode = "Credit or Debit";
+                       // binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
+                        //break;
                 }
                 paymentMode = checkedRadio.getText().toString();
             }
@@ -255,14 +265,38 @@ public class CreateTransactionActivity extends AppCompatActivity {
                             createTransactionToServer(transactionModel);
                            }
                            break;
-                        case "Online": createTransactionToServer(transactionModel);
+                        case "Online":
+
+                            String dateReference = binding.dateReferenceIdEditText.getText().toString().trim();
+                            String refernceId = binding.referenceIdEditText.getText().toString().trim();
+
+                            if(isUpiDetailValidate(refernceId,dateReference)) {
+
+                                OnlineDetailModel onlineDetailModel = new OnlineDetailModel(refernceId, dateReference);
+                                transactionModel.setOnlineDetail(onlineDetailModel);
+
+                                createTransactionToServer(transactionModel);
+                                break;
+                            }
+
                             break;
-                        case "UPI":createTransactionToServer(transactionModel);
-                            break;
+                        case "UPI":
+
+                            String dateUpi = binding.dateUpiIdEditText.getText().toString().trim();
+                            String upiId = binding.upiIdEditText.getText().toString().trim();
+
+                            if(isUpiDetailValidate(upiId,dateUpi)) {
+
+                                UpiDetailModel upiDetailModel = new UpiDetailModel(upiId, dateUpi);
+                                transactionModel.setUpiDetail(upiDetailModel);
+
+                                createTransactionToServer(transactionModel);
+                                break;
+                            }
                         case "Cash": createTransactionToServer(transactionModel);
                             break;
-                        case "Credit or Debit": createTransactionToServer(transactionModel);
-                            break;
+//                        case "Credit or Debit": createTransactionToServer(transactionModel);
+//                            break;
                     }
                 }
             }
@@ -326,4 +360,24 @@ public class CreateTransactionActivity extends AppCompatActivity {
         }
 
     }
+    private boolean isUpiDetailValidate(String upiId , String dateUpi){
+
+        if(Validation.isStringEmpty(upiId)){
+            binding.upiIdInputLayout.setError("Enter UPI Id");
+            binding.upiIdEditText.requestFocus();
+            return false;
+
+        } else if(Validation.isStringEmpty(dateUpi)){
+            AppBoiler.setInputLayoutErrorDisable(binding.dateInputLayout);
+            binding.dateUpiIdInputLayout.setError("Enter Date");
+            binding.dateUpiIdEditText.requestFocus();
+            return false;
+
+        } else{
+            AppBoiler.setInputLayoutErrorDisable(binding.upiIdInputLayout);
+            return true;
+        }
+
+    }
+
 }
