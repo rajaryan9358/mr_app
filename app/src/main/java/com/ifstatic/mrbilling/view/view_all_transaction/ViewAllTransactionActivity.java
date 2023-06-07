@@ -1,6 +1,8 @@
 package com.ifstatic.mrbilling.view.view_all_transaction;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllTransactionBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.utilities.DateFormat;
 import com.ifstatic.mrbilling.view.transaction_detail.TransactionDetailActivity;
 
 import java.util.List;
@@ -67,10 +70,74 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
                 if (totalItemCount > 0 && endHasBeenReached) {
 
                     if(isDataFound){
-                        getAgainTransactionListFromViewModel();
+                        //getAgainTransactionListFromViewModel();
                         isDataFound = false;
                         System.out.println("===== LAST ITEM OF RECYCLER VIEW ========== ");
                     }
+                }
+            }
+        });
+
+        binding.fromDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateFormat.getDateFromCalender(ViewAllTransactionActivity.this, new DateFormat.DateSelectListener() {
+                    @Override
+                    public void onSelectedDate(String date) {
+                        binding.fromDateEditText.setText(date);
+                    }
+                });
+            }
+        });
+
+        binding.toDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateFormat.getDateFromCalender(ViewAllTransactionActivity.this, new DateFormat.DateSelectListener() {
+                    @Override
+                    public void onSelectedDate(String date) {
+                        binding.toDateEditText.setText(date);
+                    }
+                });
+            }
+        });
+
+
+        binding.searchPartyNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                String partyName = charSequence.toString().trim();
+                if(partyName.length()==0){
+                    getTransactionFromViewModel();
+                } else {
+                    searchPartyFromServer(partyName);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void searchPartyFromServer(String partyName) {
+
+        LiveData<List<TransactionModel>> selectedPartyTransactionLiveData = viewAllTransactionViewModel.getTransactionOfSelectedParty(partyName);
+        selectedPartyTransactionLiveData.observe(this, new Observer<List<TransactionModel>>() {
+            @Override
+            public void onChanged(List<TransactionModel> transactionModelList) {
+
+                if(transactionModelList == null){
+                    return;
+                } else {
+                    transactionAdapter.notifyListItemChanged(transactionModelList);
                 }
             }
         });

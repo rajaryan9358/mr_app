@@ -69,4 +69,36 @@ public class ViewAllTransactionRepository {
         });
         return allTransactionListMutableLiveData;
     }
+
+    public MutableLiveData<List<TransactionModel>> getTransactionOfSelectedPartyFromServer(String partyName){
+
+        MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData = new MutableLiveData<>();
+
+        databaseReference.child("Transaction").orderByChild("party").startAt(partyName.toUpperCase()).endAt(partyName+"\uf8ff")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        List<TransactionModel> modelList = new ArrayList<>();
+
+                        if(snapshot.exists()){
+                            System.out.println("======== found ========= ");
+
+                            for(DataSnapshot keySnapshot : snapshot.getChildren()){
+                                System.out.println("======== Children count ========= "+snapshot.getChildrenCount());
+                                modelList.add(keySnapshot.getValue(TransactionModel.class));
+                            }
+                        }
+                        allTransactionListMutableLiveData.setValue(modelList);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        System.out.println("======== ERROR ========= "+error.getMessage());
+                    }
+                });
+
+        return allTransactionListMutableLiveData;
+    }
 }

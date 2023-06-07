@@ -33,4 +33,8 @@ public class ViewAllTransactionViewModel extends ViewModel {
     public LiveData<List<TransactionModel>> getTransactionsFromRepositoryAgain(){
         return viewAllTransactionRepository.getTransactionFromServer();
     }
+
+    public LiveData<List<TransactionModel>> getTransactionOfSelectedParty(String partyName){
+        return viewAllTransactionRepository.getTransactionOfSelectedPartyFromServer(partyName);
+    }
 }
