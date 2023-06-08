@@ -12,12 +12,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.ifstatic.mrbilling.repository.local.SharedPrefHelper;
-import com.ifstatic.mrbilling.view.home.HomeActivity;
 import com.ifstatic.mrbilling.databinding.ActivityLoginBinding;
+import com.ifstatic.mrbilling.repository.local.SharedPrefHelper;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
 import com.ifstatic.mrbilling.utilities.AppConstants;
 import com.ifstatic.mrbilling.utilities.Validation;
+import com.ifstatic.mrbilling.view.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if(isUserLoggedIn()){
-            AppBoiler.navigateToActivityWithFinish(this,HomeActivity.class,null);
+        if (isUserLoggedIn()) {
+            AppBoiler.navigateToActivityWithFinish(this, HomeActivity.class, null);
         }
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void observeResponseOfLogin() {
 
-        LiveData<String> responseLiveData = loginViewModel.getResponseLiveData(email,password);
+        LiveData<String> responseLiveData = loginViewModel.getResponseLiveData(email, password);
 
         responseLiveData.observe(this, new Observer<String>() {
             @Override
@@ -130,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 if (s.equals(AppConstants.SUCCESS)) {
-                    AppBoiler.navigateToActivityWithFinish(LoginActivity.this, HomeActivity.class,null);
+                    AppBoiler.navigateToActivityWithFinish(LoginActivity.this, HomeActivity.class, null);
                 } else {
                     Toast.makeText(LoginActivity.this, s, Toast.LENGTH_SHORT).show();
                 }
@@ -138,9 +138,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isUserLoggedIn(){
+    private boolean isUserLoggedIn() {
         String uid = SharedPrefHelper.getInstance().getUidOfUser();
-        if(Validation.isStringEmpty(uid)){
+        if (Validation.isStringEmpty(uid)) {
             return false;
         } else
             return true;

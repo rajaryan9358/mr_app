@@ -8,9 +8,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.utilities.Validation;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class HomeRepository {
     private String nodeId;
     private DatabaseReference databaseReference;
 
-    public HomeRepository(){
+    public HomeRepository() {
         databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
     }
 
@@ -56,7 +56,7 @@ public class HomeRepository {
 //        return myPartiesMutableList;
 //    }
 
-    public MutableLiveData<List<TransactionModel>> getRecentTransactionsFromServer(){
+    public MutableLiveData<List<TransactionModel>> getRecentTransactionsFromServer() {
 
         MutableLiveData<List<TransactionModel>> recentTransactionMutableLiveData = new MutableLiveData<>();
 
@@ -66,9 +66,9 @@ public class HomeRepository {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 List<TransactionModel> modelList = new ArrayList<>();
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    for(DataSnapshot keySnapshot : snapshot.getChildren()){
+                    for (DataSnapshot keySnapshot : snapshot.getChildren()) {
 
                         TransactionModel model = keySnapshot.getValue(TransactionModel.class);
                         modelList.add(model);
@@ -85,19 +85,18 @@ public class HomeRepository {
         return recentTransactionMutableLiveData;
     }
 
-    public MutableLiveData<List<PartyModel>> getPartiesFromServer(){
+    public MutableLiveData<List<PartyModel>> getPartiesFromServer() {
 
-        System.out.println("=========NODE ID ========== "+nodeId);
+        System.out.println("=========NODE ID ========== " + nodeId);
 
         MutableLiveData<List<PartyModel>> myPartiesMutableLiveData = new MutableLiveData<>();
 
-        Query query ;
+        Query query;
 
-        if(Validation.isStringEmpty(nodeId)){
+        if (Validation.isStringEmpty(nodeId)) {
             query = databaseReference.child("Party").orderByKey().limitToFirst(dataLimitAtTime);
             System.out.println("========= null node ======== ");
-        }
-        else{
+        } else {
             query = databaseReference.child("Party").orderByKey().startAfter(nodeId).limitToFirst(dataLimitAtTime);
             System.out.println("========= node ======== ");
         }
@@ -108,9 +107,9 @@ public class HomeRepository {
 
                 List<PartyModel> modelList = new ArrayList<>();
 
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    for(DataSnapshot nodeSnapshot : snapshot.getChildren()){
+                    for (DataSnapshot nodeSnapshot : snapshot.getChildren()) {
 
                         PartyModel model = nodeSnapshot.getValue(PartyModel.class);
                         modelList.add(model);
@@ -118,14 +117,14 @@ public class HomeRepository {
                         nodeId = nodeSnapshot.getKey();
                     }
                 }
-                System.out.println("=============== SIZE ============= "+modelList.size()+"       "+nodeId);
+                System.out.println("=============== SIZE ============= " + modelList.size() + "       " + nodeId);
 
                 myPartiesMutableLiveData.setValue(modelList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("=========== ERROR ======== "+error.getMessage());
+                System.out.println("=========== ERROR ======== " + error.getMessage());
             }
         });
         return myPartiesMutableLiveData;

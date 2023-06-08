@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
-import com.ifstatic.mrbilling.view.home.HomeRepository;
 
 import java.util.List;
 
@@ -17,21 +16,21 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<List<PartyModel>> myPartiesListLiveData;
     private LiveData<List<TransactionModel>> recentTransactionListLiveData;
 
-    public LiveData<List<PartyModel>> getPartiesModelListFromRepository(){
+    public LiveData<List<PartyModel>> getPartiesModelListFromRepository() {
 
-        if(myPartiesListLiveData == null){
-          //  myPartiesListLiveData =  repository.getMyPartiesFromServer();
-            myPartiesListLiveData =  repository.getPartiesFromServer();
+        if (myPartiesListLiveData == null) {
+            //  myPartiesListLiveData =  repository.getMyPartiesFromServer();
+            myPartiesListLiveData = repository.getPartiesFromServer();
 
         }
         return myPartiesListLiveData;
     }
 
-    public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain(){
+    public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain() {
         return repository.getPartiesFromServer();
     }
 
-    public void updatePartyMutableListLiveData(List<PartyModel> partyModelList){
+    public void updatePartyMutableListLiveData(List<PartyModel> partyModelList) {
 
         List<PartyModel> modelList = myPartiesListLiveData.getValue();
 
@@ -40,10 +39,10 @@ public class HomeViewModel extends ViewModel {
     }
 
 
-    public LiveData<List<TransactionModel>> getRecentTransactionsFromRepository(){
+    public LiveData<List<TransactionModel>> getRecentTransactionsFromRepository() {
 
-        if(recentTransactionListLiveData == null){
-            recentTransactionListLiveData =  repository.getRecentTransactionsFromServer();
+        if (recentTransactionListLiveData == null) {
+            recentTransactionListLiveData = repository.getRecentTransactionsFromServer();
         }
         return recentTransactionListLiveData;
     }

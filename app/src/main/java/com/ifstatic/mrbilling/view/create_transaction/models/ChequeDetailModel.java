@@ -5,6 +5,17 @@ import android.os.Parcelable;
 
 public class ChequeDetailModel implements Parcelable {
 
+    public static final Parcelable.Creator<ChequeDetailModel> CREATOR = new Parcelable.Creator<ChequeDetailModel>() {
+        @Override
+        public ChequeDetailModel createFromParcel(Parcel source) {
+            return new ChequeDetailModel(source);
+        }
+
+        @Override
+        public ChequeDetailModel[] newArray(int size) {
+            return new ChequeDetailModel[size];
+        }
+    };
     private String date;
     private String bankName;
     private String chequeNo;
@@ -16,6 +27,12 @@ public class ChequeDetailModel implements Parcelable {
         this.date = date;
         this.bankName = bankName;
         this.chequeNo = chequeNo;
+    }
+
+    protected ChequeDetailModel(Parcel in) {
+        this.date = in.readString();
+        this.bankName = in.readString();
+        this.chequeNo = in.readString();
     }
 
     public String getDate() {
@@ -42,7 +59,6 @@ public class ChequeDetailModel implements Parcelable {
         this.chequeNo = chequeNo;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -60,22 +76,4 @@ public class ChequeDetailModel implements Parcelable {
         this.bankName = source.readString();
         this.chequeNo = source.readString();
     }
-
-    protected ChequeDetailModel(Parcel in) {
-        this.date = in.readString();
-        this.bankName = in.readString();
-        this.chequeNo = in.readString();
-    }
-
-    public static final Parcelable.Creator<ChequeDetailModel> CREATOR = new Parcelable.Creator<ChequeDetailModel>() {
-        @Override
-        public ChequeDetailModel createFromParcel(Parcel source) {
-            return new ChequeDetailModel(source);
-        }
-
-        @Override
-        public ChequeDetailModel[] newArray(int size) {
-            return new ChequeDetailModel[size];
-        }
-    };
 }

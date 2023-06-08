@@ -15,156 +15,156 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/searchPartyNameInputLayout"
-            style="@style/TextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/search_party_name"
-            app:layout_constraintEnd_toEndOf="@id/guideline_right"
-            app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toTopOf="@id/guideline_top"
-            app:shapeAppearance="@style/cornerRounded_TextInputLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/searchPartyNameInputLayout"
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_party_name"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toTopOf="@id/guideline_top"
+                app:shapeAppearance="@style/cornerRounded_TextInputLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchPartyNameEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text"
-                android:singleLine="true"
-                android:drawableLeft="@drawable/ic_search"
-                android:drawablePadding="@dimen/_4sdp"
-                android:textAppearance="@style/InputTextAppearance"
-                android:textColor="@color/colorSecondary"
-                android:textSize="@dimen/_12ssp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchPartyNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/ic_search"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textAppearance="@style/InputTextAppearance"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/_12ssp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBarHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:indeterminate="true"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintEnd_toEndOf="@id/guideline_right"
-            app:layout_constraintTop_toBottomOf="@+id/searchPartyNameInputLayout"/>
+            <ProgressBar
+                android:id="@+id/progressBarHorizontal"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/searchPartyNameInputLayout" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fromDateInputLayout"
-            style="@style/TextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginRight="@dimen/_5sdp"
-            android:hint="@string/from_date"
-            app:layout_constraintEnd_toStartOf="@id/toDateInputLayout"
-            app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintTop_toBottomOf="@+id/searchPartyNameInputLayout"
-            app:shapeAppearance="@style/cornerRounded_TextInputLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fromDateInputLayout"
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:hint="@string/from_date"
+                app:layout_constraintEnd_toStartOf="@id/toDateInputLayout"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/searchPartyNameInputLayout"
+                app:shapeAppearance="@style/cornerRounded_TextInputLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fromDateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="date"
-                android:singleLine="true"
-                android:focusable="false"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:drawablePadding="@dimen/_4sdp"
-                android:textAppearance="@style/InputTextAppearance"
-                android:textColor="@color/colorSecondary"
-                android:textSize="@dimen/_12ssp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fromDateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:textAppearance="@style/InputTextAppearance"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/_12ssp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/toDateInputLayout"
-            style="@style/TextInputLayout"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:hint="@string/to_date"
-            app:layout_constraintEnd_toEndOf="@id/guideline_right"
-            app:layout_constraintStart_toEndOf="@id/fromDateInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/searchPartyNameInputLayout"
-            app:shapeAppearance="@style/cornerRounded_TextInputLayout">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/toDateInputLayout"
+                style="@style/TextInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:hint="@string/to_date"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toEndOf="@id/fromDateInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/searchPartyNameInputLayout"
+                app:shapeAppearance="@style/cornerRounded_TextInputLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/toDateEditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="date"
-                android:singleLine="true"
-                android:focusable="false"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:drawablePadding="@dimen/_4sdp"
-                android:textAppearance="@style/InputTextAppearance"
-                android:textColor="@color/colorSecondary"
-                android:textSize="@dimen/_12ssp" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/toDateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:textAppearance="@style/InputTextAppearance"
+                    android:textColor="@color/colorSecondary"
+                    android:textSize="@dimen/_12ssp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:id="@+id/header_recent_transaction_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_12sdp"
-            app:layout_constraintTop_toBottomOf="@+id/fromDateInputLayout"
-            app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintEnd_toEndOf="@id/guideline_right">
+            <LinearLayout
+                android:id="@+id/header_recent_transaction_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/fromDateInputLayout">
 
-            <include
-                android:id="@+id/header_recent_transaction"
-                layout="@layout/layout_recent_transaction_header" />
+                <include
+                    android:id="@+id/header_recent_transaction"
+                    layout="@layout/layout_recent_transaction_header" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recentTransactionRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="@id/guideline_left"
-            app:layout_constraintEnd_toEndOf="@id/guideline_right"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline_bottom"
-            app:layout_constraintTop_toBottomOf="@+id/header_recent_transaction_layout" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recentTransactionRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/guideline_bottom"
+                app:layout_constraintEnd_toEndOf="@id/guideline_right"
+                app:layout_constraintStart_toStartOf="@id/guideline_left"
+                app:layout_constraintTop_toBottomOf="@+id/header_recent_transaction_layout" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="@dimen/_10sdp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="@dimen/_10sdp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/_10sdp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/_10sdp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_end="@dimen/_10sdp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_end="@dimen/_10sdp" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="@dimen/_10sdp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/_10sdp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </LinearLayout>

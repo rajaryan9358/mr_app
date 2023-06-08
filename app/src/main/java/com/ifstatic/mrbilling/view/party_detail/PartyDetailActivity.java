@@ -1,17 +1,17 @@
 package com.ifstatic.mrbilling.view.party_detail;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Bundle;
-import android.view.View;
-
 import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
-import com.ifstatic.mrbilling.databinding.ActivityPartyDetailsBinding;
 import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.databinding.ActivityPartyDetailsBinding;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void initViews(){
+    private void initViews() {
         partyDetailViewModel = new ViewModelProvider(this).get(PartyDetailViewModel.class);
 
         binding.header.titleTextView.setText("Party Details");
@@ -66,7 +66,7 @@ public class PartyDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getTransactionOfPartyFromViewModel(){
+    private void getTransactionOfPartyFromViewModel() {
 
         LiveData<List<TransactionModel>> transactionLiveData = partyDetailViewModel.getTransactionListFromRepository(partyModel.getParty());
         transactionLiveData.observe(this, new Observer<List<TransactionModel>>() {
@@ -77,12 +77,12 @@ public class PartyDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setAdapterForTransaction(){
+    private void setAdapterForTransaction() {
         transactionAdapter = new TransactionAdapter(this);
         binding.partyDetailRecyclerView.setAdapter(transactionAdapter);
     }
 
-    private void notifyAdapter(List<TransactionModel> transactionModelList){
+    private void notifyAdapter(List<TransactionModel> transactionModelList) {
         transactionAdapter.notifyListItemChanged(transactionModelList);
     }
 }

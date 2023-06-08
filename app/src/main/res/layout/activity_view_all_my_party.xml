@@ -12,50 +12,49 @@
         layout="@layout/layout_header" />
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/searchPartyNameInputLayout"
+        style="@style/TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:hint="@string/search_party_name"
+        app:shapeAppearance="@style/cornerRounded_TextInputLayout">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/searchPartyNameInputLayout"
-                style="@style/TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:hint="@string/search_party_name"
-                app:shapeAppearance="@style/cornerRounded_TextInputLayout">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchPartyNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="@dimen/_4sdp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textAppearance="@style/InputTextAppearance"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12ssp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchPartyNameEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:drawableLeft="@drawable/ic_search"
-                    android:drawablePadding="@dimen/_4sdp"
-                    android:textAppearance="@style/InputTextAppearance"
-                    android:textColor="@color/colorSecondary"
-                    android:textSize="@dimen/_12ssp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/myPartiesRecyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-            <TextView
-                android:id="@+id/noPartiesFoundTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/no_parties_found"
-                android:fontFamily="@font/nunito_bold"
-                android:textSize="@dimen/_14ssp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:textAlignment="center"
-                android:visibility="gone"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myPartiesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+    <TextView
+        android:id="@+id/noPartiesFoundTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="@string/no_parties_found"
+        android:textAlignment="center"
+        android:textSize="@dimen/_14ssp"
+        android:visibility="gone" />
 
 
 </LinearLayout>

@@ -13,7 +13,7 @@ import com.ifstatic.mrbilling.utilities.AppConstants;
 
 public class CreateTransactionRepository {
 
-    public MutableLiveData<String> addTransactionToServer(TransactionModel model){
+    public MutableLiveData<String> addTransactionToServer(TransactionModel model) {
 
         MutableLiveData<String> responseMutableLiveData = new MutableLiveData<>();
 
@@ -28,7 +28,7 @@ public class CreateTransactionRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 responseMutableLiveData.setValue(AppConstants.FAILED);
-                System.out.println("======== ERROR ========= "+e.getMessage());
+                System.out.println("======== ERROR ========= " + e.getMessage());
             }
         });
         return responseMutableLiveData;

@@ -17,26 +17,25 @@ import java.util.List;
 
 public class ViewAllTransactionRepository {
 
-    private DatabaseReference databaseReference;
     private final int dataLimitAtTime = 20;
+    private DatabaseReference databaseReference;
     private String nodeId;
 
-    public ViewAllTransactionRepository(){
+    public ViewAllTransactionRepository() {
         databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
     }
 
-    public MutableLiveData<List<TransactionModel>> getTransactionFromServer(){
+    public MutableLiveData<List<TransactionModel>> getTransactionFromServer() {
 
-        System.out.println("=========NODE ID ========== "+nodeId);
+        System.out.println("=========NODE ID ========== " + nodeId);
 
         MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData = new MutableLiveData<>();
 
-        Query query ;
-        if(Validation.isStringEmpty(nodeId)){
+        Query query;
+        if (Validation.isStringEmpty(nodeId)) {
             query = databaseReference.child("Transaction").orderByKey().limitToFirst(dataLimitAtTime);
             System.out.println("========= null node ======== ");
-        }
-        else{
+        } else {
             query = databaseReference.child("Party").orderByKey().startAfter(nodeId).limitToFirst(dataLimitAtTime);
             System.out.println("========= node ======== ");
         }
@@ -47,9 +46,9 @@ public class ViewAllTransactionRepository {
 
                 List<TransactionModel> modelList = new ArrayList<>();
 
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    for(DataSnapshot nodeSnapshot : snapshot.getChildren()){
+                    for (DataSnapshot nodeSnapshot : snapshot.getChildren()) {
 
                         TransactionModel model = nodeSnapshot.getValue(TransactionModel.class);
                         modelList.add(model);
@@ -57,35 +56,35 @@ public class ViewAllTransactionRepository {
                         nodeId = nodeSnapshot.getKey();
                     }
                 }
-                System.out.println("=============== SIZE ============= "+modelList.size()+"       "+nodeId);
+                System.out.println("=============== SIZE ============= " + modelList.size() + "       " + nodeId);
 
                 allTransactionListMutableLiveData.setValue(modelList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("=========== ERROR ======== "+error.getMessage());
+                System.out.println("=========== ERROR ======== " + error.getMessage());
             }
         });
         return allTransactionListMutableLiveData;
     }
 
-    public MutableLiveData<List<TransactionModel>> getTransactionOfSelectedPartyFromServer(String partyName){
+    public MutableLiveData<List<TransactionModel>> getTransactionOfSelectedPartyFromServer(String partyName) {
 
         MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData = new MutableLiveData<>();
 
-        databaseReference.child("Transaction").orderByChild("party").startAt(partyName.toUpperCase()).endAt(partyName.toLowerCase()+"\uf8ff")
+        databaseReference.child("Transaction").orderByChild("party").startAt(partyName.toUpperCase()).endAt(partyName.toLowerCase() + "\uf8ff")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         List<TransactionModel> modelList = new ArrayList<>();
 
-                        if(snapshot.exists()){
+                        if (snapshot.exists()) {
                             System.out.println("======== found ========= ");
 
-                            for(DataSnapshot keySnapshot : snapshot.getChildren()){
-                                System.out.println("======== Children count ========= "+snapshot.getChildrenCount());
+                            for (DataSnapshot keySnapshot : snapshot.getChildren()) {
+                                System.out.println("======== Children count ========= " + snapshot.getChildrenCount());
                                 modelList.add(keySnapshot.getValue(TransactionModel.class));
                             }
                         }
@@ -95,7 +94,7 @@ public class ViewAllTransactionRepository {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        System.out.println("======== ERROR ========= "+error.getMessage());
+                        System.out.println("======== ERROR ========= " + error.getMessage());
                     }
                 });
 

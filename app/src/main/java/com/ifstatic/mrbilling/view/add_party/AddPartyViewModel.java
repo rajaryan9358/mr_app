@@ -9,7 +9,7 @@ public class AddPartyViewModel extends ViewModel {
 
     private final AddPartyRepository repository = new AddPartyRepository();
 
-    public LiveData<String> addPartyResponseLiveData(PartyModel model){
+    public LiveData<String> addPartyResponseLiveData(PartyModel model) {
         return repository.addPartyToServer(model);
     }
 }

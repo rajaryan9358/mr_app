@@ -9,7 +9,7 @@ import com.ifstatic.mrbilling.comman.models.TransactionModel;
 public class CreateTransactionViewModel extends ViewModel {
     private final CreateTransactionRepository repository = new CreateTransactionRepository();
 
-    public LiveData<String> createTransactionToServer(TransactionModel model){
+    public LiveData<String> createTransactionToServer(TransactionModel model) {
         return repository.addTransactionToServer(model);
     }
 

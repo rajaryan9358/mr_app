@@ -1,5 +1,10 @@
 package com.ifstatic.mrbilling.view.view_all_party;
 
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -7,16 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-
 import com.ifstatic.mrbilling.comman.adapters.PartyAdapter;
-import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllMyPartyBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
-import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.view.party_detail.PartyDetailActivity;
 
 import java.util.List;
@@ -62,19 +61,19 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
-                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
                 int totalItemCount = layoutManager.getItemCount();
                 int lastVisible = layoutManager.findLastVisibleItemPosition();
 
-                boolean endHasBeenReached = lastVisible+1 >= totalItemCount;
-                System.out.println("========= "+lastVisible+"     "+totalItemCount+"     "+endHasBeenReached);
+                boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+                System.out.println("========= " + lastVisible + "     " + totalItemCount + "     " + endHasBeenReached);
 
                 if (totalItemCount > 0 && endHasBeenReached) {
 
                      /* if searching is not activated then only get all data
                        else shows only searched data list.
                      */
-                    if(isDataFound && binding.searchPartyNameEditText.getText().toString().length()==0){
+                    if (isDataFound && binding.searchPartyNameEditText.getText().toString().length() == 0) {
 
                         getPartyAgainFromViewModel();
                         isDataFound = false;
@@ -95,7 +94,7 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
 
                 String partyName = charSequence.toString().trim();
 
-                if(partyName.length()==0){
+                if (partyName.length() == 0) {
                     getPartyFromViewModel();
                 } else {
                     searchPartyFromServer(partyName);
@@ -117,7 +116,7 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<PartyModel> partyModels) {
 
-                if(partyModels == null){
+                if (partyModels == null) {
                     return;
                 } else {
                     partyAdapter.notifyListIsChanged(partyModels);
@@ -126,7 +125,7 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
         });
     }
 
-    private void getPartyFromViewModel(){
+    private void getPartyFromViewModel() {
 
         LiveData<List<PartyModel>> myPartiesLiveData = viewAllPartyViewModel.getPartiesFromRepository();
         myPartiesLiveData.observe(this, new Observer<List<PartyModel>>() {
@@ -135,10 +134,11 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
 
                 isDataFound = true;
 
-                if(partyModels == null){
+                if (partyModels == null) {
                     System.out.println("=========== NULLABLE ============ ");
                     return;
-                } if(partyModels.size() == 0){
+                }
+                if (partyModels.size() == 0) {
                     binding.noPartiesFoundTextView.setVisibility(View.VISIBLE);
                 } else {
                     binding.noPartiesFoundTextView.setVisibility(View.GONE);
@@ -168,7 +168,7 @@ public class ViewAllMyPartyActivity extends AppCompatActivity {
         partyAdapter.notifyListIsChanged(partyModelList);
     }
 
-    private void getPartyAgainFromViewModel(){
+    private void getPartyAgainFromViewModel() {
 
         LiveData<List<PartyModel>> myPartiesLiveData = viewAllPartyViewModel.getPartiesFromRepositoryAgain();
         myPartiesLiveData.observe(this, new Observer<List<PartyModel>>() {

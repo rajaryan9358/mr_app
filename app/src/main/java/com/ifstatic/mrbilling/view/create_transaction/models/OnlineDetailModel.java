@@ -7,8 +7,20 @@ import androidx.annotation.NonNull;
 
 public class OnlineDetailModel implements Parcelable {
 
+    public static final Creator<OnlineDetailModel> CREATOR = new Creator<OnlineDetailModel>() {
+        @Override
+        public OnlineDetailModel createFromParcel(Parcel in) {
+            return new OnlineDetailModel(in);
+        }
+
+        @Override
+        public OnlineDetailModel[] newArray(int size) {
+            return new OnlineDetailModel[size];
+        }
+    };
     private String referenceId;
     private String date;
+
 
     public OnlineDetailModel() {
     }
@@ -16,6 +28,12 @@ public class OnlineDetailModel implements Parcelable {
     public OnlineDetailModel(String referenceId, String date) {
         this.referenceId = referenceId;
         this.date = date;
+    }
+
+    protected OnlineDetailModel(Parcel in) {
+        this.date = in.readString();
+        this.referenceId = in.readString();
+
     }
 
     public String getReferenceId() {
@@ -34,8 +52,6 @@ public class OnlineDetailModel implements Parcelable {
         this.date = date;
     }
 
-
-
     @Override
     public int describeContents() {
         return 0;
@@ -46,26 +62,10 @@ public class OnlineDetailModel implements Parcelable {
         parcel.writeString(this.date);
         parcel.writeString(this.referenceId);
     }
+
     public void readFromParcel(Parcel source) {
         this.date = source.readString();
         this.referenceId = source.readString();
 
     }
-    protected OnlineDetailModel(Parcel in) {
-        this.date = in.readString();
-        this.referenceId = in.readString();
-
-    }
-
-    public static final Creator<OnlineDetailModel> CREATOR = new Creator<OnlineDetailModel>() {
-        @Override
-        public OnlineDetailModel createFromParcel(Parcel in) {
-            return new OnlineDetailModel(in);
-        }
-
-        @Override
-        public OnlineDetailModel[] newArray(int size) {
-            return new OnlineDetailModel[size];
-        }
-    };
 }

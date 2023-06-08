@@ -5,24 +5,23 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.ifstatic.mrbilling.comman.models.PartyModel;
-import com.ifstatic.mrbilling.comman.models.TransactionModel;
 
 import java.util.List;
 
 public class ViewAllPartyViewModel extends ViewModel {
 
     private ViewAllPartyRepository viewAllPartyRepository = new ViewAllPartyRepository();
-    private MutableLiveData<List<PartyModel>> myPartiesListLiveData ;
+    private MutableLiveData<List<PartyModel>> myPartiesListLiveData;
 
-    public LiveData<List<PartyModel>> getPartiesFromRepository(){
+    public LiveData<List<PartyModel>> getPartiesFromRepository() {
 
-            if(myPartiesListLiveData == null){
-                myPartiesListLiveData = viewAllPartyRepository.getPartiesFromServer();
-            }
+        if (myPartiesListLiveData == null) {
+            myPartiesListLiveData = viewAllPartyRepository.getPartiesFromServer();
+        }
         return myPartiesListLiveData;
     }
 
-    public void updateMutableListLiveData(List<PartyModel> partyModelList){
+    public void updateMutableListLiveData(List<PartyModel> partyModelList) {
 
         List<PartyModel> modelList = myPartiesListLiveData.getValue();
 
@@ -30,11 +29,11 @@ public class ViewAllPartyViewModel extends ViewModel {
         myPartiesListLiveData.setValue(modelList);
     }
 
-    public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain(){
+    public LiveData<List<PartyModel>> getPartiesFromRepositoryAgain() {
         return viewAllPartyRepository.getPartiesFromServer();
     }
 
-    public LiveData<List<PartyModel>> getSelectedPartyFromRepository(String partyName){
+    public LiveData<List<PartyModel>> getSelectedPartyFromRepository(String partyName) {
         return viewAllPartyRepository.getSelectedPartyFromServer(partyName);
     }
 }

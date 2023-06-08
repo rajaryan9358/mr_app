@@ -27,23 +27,23 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
     private void getBundles() {
         Bundle bundle = getIntent().getExtras();
-        if(bundle != null){
+        if (bundle != null) {
             transactionModel = bundle.getParcelable("transaction_data");
         }
     }
 
-    private void initViews(){
+    private void initViews() {
 
-        if(transactionModel != null){
+        if (transactionModel != null) {
 
-            binding.mrNoTextView.setText("#"+transactionModel.getMrNo());
+            binding.mrNoTextView.setText("#" + transactionModel.getMrNo());
             binding.dateTextView.setText(transactionModel.getDate());
             binding.nameTextView.setText(transactionModel.getParty());
             binding.addressTextView.setText(transactionModel.getAddress());
             binding.amountTextView.setText(transactionModel.getAmount());
             binding.paymentModeTextView.setText(transactionModel.getPaymentMode());
 
-            if(transactionModel.getChequeDetail() != null){
+            if (transactionModel.getChequeDetail() != null) {
                 binding.datePaymentDetailTextView.setText(transactionModel.getChequeDetail().getDate());
                 binding.bankNameTextView.setText(transactionModel.getChequeDetail().getBankName());
                 binding.chequeNoTextView.setText(transactionModel.getChequeDetail().getChequeNo());

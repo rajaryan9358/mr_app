@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ifstatic.mrbilling.comman.adapters.TransactionAdapter;
+import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.databinding.ActivityViewAllTransactionBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
-import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.utilities.DateFormat;
 import com.ifstatic.mrbilling.view.transaction_detail.TransactionDetailActivity;
 
@@ -60,19 +60,19 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
-                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
                 int totalItemCount = layoutManager.getItemCount();
                 int lastVisible = layoutManager.findLastVisibleItemPosition();
 
-                boolean endHasBeenReached = lastVisible+1 >= totalItemCount;
-                System.out.println("========= "+lastVisible+"     "+totalItemCount+"     "+endHasBeenReached);
+                boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
+                System.out.println("========= " + lastVisible + "     " + totalItemCount + "     " + endHasBeenReached);
 
                 if (totalItemCount > 0 && endHasBeenReached) {
 
                     /* if searching is not activated then only get all data
                        else shows only searched data list.
                      */
-                    if(isDataFound && binding.searchPartyNameEditText.getText().toString().length()==0){
+                    if (isDataFound && binding.searchPartyNameEditText.getText().toString().length() == 0) {
 
                         getAgainTransactionListFromViewModel();
                         isDataFound = false;
@@ -117,7 +117,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                 String partyName = charSequence.toString().trim();
-                if(partyName.length()==0){
+                if (partyName.length() == 0) {
                     getTransactionFromViewModel();
                 } else {
                     binding.progressBarHorizontal.setVisibility(View.VISIBLE);
@@ -140,7 +140,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             public void onChanged(List<TransactionModel> transactionModelList) {
 
                 binding.progressBarHorizontal.setVisibility(View.GONE);
-                if(transactionModelList == null){
+                if (transactionModelList == null) {
                     return;
                 } else {
                     transactionAdapter.notifyListItemChanged(transactionModelList);
@@ -150,7 +150,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
     }
 
 
-    private void getTransactionFromViewModel(){
+    private void getTransactionFromViewModel() {
 
         LiveData<List<TransactionModel>> viewAllTransactionLiveData = viewAllTransactionViewModel.getTransactionFromRepository();
         viewAllTransactionLiveData.observe(this, new Observer<List<TransactionModel>>() {
@@ -159,7 +159,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
 
                 isDataFound = true;
 
-                if(transactionModels == null){
+                if (transactionModels == null) {
                     System.out.println("=========== NULLABLE ============ ");
                     return;
                 }
@@ -179,8 +179,8 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
             public void onClickItem(TransactionModel model, int position) {
 
                 Bundle bundle = new Bundle();
-                bundle.putParcelable("transaction_data",model);
-                AppBoiler.navigateToActivity(ViewAllTransactionActivity.this, TransactionDetailActivity.class,bundle);
+                bundle.putParcelable("transaction_data", model);
+                AppBoiler.navigateToActivity(ViewAllTransactionActivity.this, TransactionDetailActivity.class, bundle);
 
             }
         });
@@ -190,7 +190,7 @@ public class ViewAllTransactionActivity extends AppCompatActivity {
         transactionAdapter.notifyListItemChanged(transactionModelList);
     }
 
-    private void getAgainTransactionListFromViewModel(){
+    private void getAgainTransactionListFromViewModel() {
 
         LiveData<List<TransactionModel>> viewAllTransactionLiveData = viewAllTransactionViewModel.getTransactionsFromRepositoryAgain();
         viewAllTransactionLiveData.observe(this, new Observer<List<TransactionModel>>() {

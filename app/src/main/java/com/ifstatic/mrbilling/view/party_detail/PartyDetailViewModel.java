@@ -13,9 +13,9 @@ public class PartyDetailViewModel extends ViewModel {
     private PartyDetailRepository partyDetailRepository = new PartyDetailRepository();
     private MutableLiveData<List<TransactionModel>> transactionListMutableLiveData;
 
-    public LiveData<List<TransactionModel>> getTransactionListFromRepository(String partyName){
+    public LiveData<List<TransactionModel>> getTransactionListFromRepository(String partyName) {
 
-        if(transactionListMutableLiveData == null){
+        if (transactionListMutableLiveData == null) {
             transactionListMutableLiveData = partyDetailRepository.getTransactionFromServer(partyName);
         }
         return transactionListMutableLiveData;

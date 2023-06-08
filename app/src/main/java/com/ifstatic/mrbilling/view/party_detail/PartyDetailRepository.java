@@ -7,8 +7,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
+import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +16,12 @@ import java.util.List;
 public class PartyDetailRepository {
 
     private DatabaseReference databaseReference;
-    public PartyDetailRepository(){
+
+    public PartyDetailRepository() {
         databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
     }
 
-    public MutableLiveData<List<TransactionModel>> getTransactionFromServer(String partyName){
+    public MutableLiveData<List<TransactionModel>> getTransactionFromServer(String partyName) {
 
         MutableLiveData<List<TransactionModel>> transactionMutableLiveData = new MutableLiveData<>();
 
@@ -30,12 +31,12 @@ public class PartyDetailRepository {
 
                 List<TransactionModel> modelList = new ArrayList<>();
 
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 
-                    for(DataSnapshot keySnapshot : snapshot.getChildren()){
+                    for (DataSnapshot keySnapshot : snapshot.getChildren()) {
 
-                       TransactionModel model = keySnapshot.getValue(TransactionModel.class);
-                       modelList.add(model);
+                        TransactionModel model = keySnapshot.getValue(TransactionModel.class);
+                        modelList.add(model);
                     }
                     transactionMutableLiveData.setValue(modelList);
                 }

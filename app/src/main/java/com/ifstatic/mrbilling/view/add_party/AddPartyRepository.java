@@ -12,7 +12,7 @@ import com.ifstatic.mrbilling.utilities.AppConstants;
 
 public class AddPartyRepository {
 
-    public MutableLiveData<String> addPartyToServer(PartyModel model){
+    public MutableLiveData<String> addPartyToServer(PartyModel model) {
 
         MutableLiveData<String> responseMutableLiveData = new MutableLiveData<>();
         DatabaseReference databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
@@ -26,7 +26,7 @@ public class AddPartyRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 responseMutableLiveData.setValue(AppConstants.FAILED);
-                System.out.println("======== ERROR ========= "+e.getMessage());
+                System.out.println("======== ERROR ========= " + e.getMessage());
             }
         });
         return responseMutableLiveData;

@@ -11,20 +11,19 @@ import com.ifstatic.mrbilling.repository.local.SharedPrefHelper;
 import com.ifstatic.mrbilling.utilities.AppConstants;
 
 
-
 public class LoginRepository {
 
     private MutableLiveData<String> responseMutableData = new MutableLiveData<>();
 
-    public MutableLiveData<String> loginUser(String email , String password){
+    public MutableLiveData<String> loginUser(String email, String password) {
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        auth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        auth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 responseMutableData.setValue(AppConstants.SUCCESS);
-                System.out.println("======== USER ID======= "+authResult.getUser().getUid());
+                System.out.println("======== USER ID======= " + authResult.getUser().getUid());
 
                 SharedPrefHelper.getInstance().setUidOfUser(authResult.getUser().getUid());
             }
@@ -32,7 +31,7 @@ public class LoginRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 responseMutableData.setValue(e.getMessage());
-                System.out.println("=================== Exception while Registration : "+e.getMessage());
+                System.out.println("=================== Exception while Registration : " + e.getMessage());
             }
         });
         return responseMutableData;

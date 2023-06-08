@@ -1,16 +1,16 @@
 package com.ifstatic.mrbilling.view.add_party;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.databinding.ActivityAddPartyBinding;
@@ -23,7 +23,7 @@ public class AddPartyActivity extends AppCompatActivity {
     private ActivityAddPartyBinding binding;
     private AddPartyViewModel addPartyViewModel;
     private Dialog progressDialog;
-    private String party , address;
+    private String party, address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class AddPartyActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 party = charSequence.toString().trim();
-                if(party.length() == 0){
+                if (party.length() == 0) {
                     binding.partyInputLayout.setError("Enter Party Name");
                 } else {
                     AppBoiler.setInputLayoutErrorDisable(binding.partyInputLayout);
@@ -83,7 +83,7 @@ public class AddPartyActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 address = charSequence.toString().trim();
-                if(address.length() == 0){
+                if (address.length() == 0) {
                     binding.addressInputLayout.setError("Enter Address");
                 } else {
                     AppBoiler.setInputLayoutErrorDisable(binding.addressInputLayout);
@@ -100,20 +100,20 @@ public class AddPartyActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(Validation.isStringEmpty(party)){
+                if (Validation.isStringEmpty(party)) {
                     binding.partyInputLayout.setError("Enter Party Name");
                     binding.partyEditText.requestFocus();
 
-                } else if(Validation.isStringEmpty(address)){
+                } else if (Validation.isStringEmpty(address)) {
                     binding.addressInputLayout.setError("Enter Address");
                     binding.addressEditText.requestFocus();
 
                 } else {
 
-                    if(AppBoiler.isInternetConnected(AddPartyActivity.this)){
+                    if (AppBoiler.isInternetConnected(AddPartyActivity.this)) {
                         addPartyToFirebase();
-                    } else{
-                        AppBoiler.showSnackBarForInternet(AddPartyActivity.this,binding.getRoot());
+                    } else {
+                        AppBoiler.showSnackBarForInternet(AddPartyActivity.this, binding.getRoot());
                     }
                 }
             }
@@ -124,7 +124,7 @@ public class AddPartyActivity extends AppCompatActivity {
 
         progressDialog = AppBoiler.setProgressDialog(this);
 
-        PartyModel partyModel = new PartyModel(party,address);
+        PartyModel partyModel = new PartyModel(party, address);
         LiveData<String> responseLiveData = addPartyViewModel.addPartyResponseLiveData(partyModel);
 
         responseLiveData.observe(this, new Observer<String>() {
@@ -132,7 +132,7 @@ public class AddPartyActivity extends AppCompatActivity {
             public void onChanged(String s) {
                 progressDialog.dismiss();
 
-                if(s.equals(AppConstants.SUCCESS)){
+                if (s.equals(AppConstants.SUCCESS)) {
                     Toast.makeText(AddPartyActivity.this, "Party Added", Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 } else {

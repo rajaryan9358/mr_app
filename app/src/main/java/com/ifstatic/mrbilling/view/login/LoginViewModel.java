@@ -8,8 +8,8 @@ public class LoginViewModel extends ViewModel {
 
     private LoginRepository loginRepository = new LoginRepository();
 
-    public LiveData<String> getResponseLiveData(String email , String password){
-        return loginRepository.loginUser(email,password);
+    public LiveData<String> getResponseLiveData(String email, String password) {
+        return loginRepository.loginUser(email, password);
     }
 
     @Override

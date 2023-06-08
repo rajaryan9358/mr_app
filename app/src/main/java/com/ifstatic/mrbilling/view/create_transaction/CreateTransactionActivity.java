@@ -25,6 +25,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.ifstatic.mrbilling.R;
+import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.databinding.ActivityCreateTransactionBinding;
 import com.ifstatic.mrbilling.utilities.AppBoiler;
@@ -32,7 +33,6 @@ import com.ifstatic.mrbilling.utilities.AppConstants;
 import com.ifstatic.mrbilling.utilities.DateFormat;
 import com.ifstatic.mrbilling.utilities.Validation;
 import com.ifstatic.mrbilling.view.create_transaction.models.ChequeDetailModel;
-import com.ifstatic.mrbilling.comman.models.PartyModel;
 import com.ifstatic.mrbilling.view.create_transaction.models.OnlineDetailModel;
 import com.ifstatic.mrbilling.view.create_transaction.models.UpiDetailModel;
 
@@ -67,8 +67,8 @@ public class CreateTransactionActivity extends AppCompatActivity {
             partyModelList = bundle.getParcelableArrayList("party_data");
             currentMrNo = bundle.getString("mr_no");
 
-            binding.mrNoTextView.setText("#"+currentMrNo);
-            if(partyModelList != null){
+            binding.mrNoTextView.setText("#" + currentMrNo);
+            if (partyModelList != null) {
                 setPartyDataToSpinner();
             }
         }
@@ -83,13 +83,13 @@ public class CreateTransactionActivity extends AppCompatActivity {
         for (int i = 0; i < partyModelList.size(); i++) {
             partyList.add(partyModelList.get(i).getParty());
         }
-        partyList.add(0,"Select Party");
+        partyList.add(0, "Select Party");
 
-        ArrayAdapter<String> partySpinnerListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, partyList){
+        ArrayAdapter<String> partySpinnerListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, partyList) {
 
             @Override
             public boolean isEnabled(int position) {
-                return position!=0;
+                return position != 0;
             }
 
             @Override
@@ -97,7 +97,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView textView = (TextView) view;
-                if(position==0){
+                if (position == 0) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         textView.setTextColor(getColor(R.color.black_text_disabled));
                     }
@@ -110,7 +110,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
         binding.partySpinner.setAdapter(partySpinnerListAdapter);
     }
 
-    private Typeface getTypeFace(){
+    private Typeface getTypeFace() {
         Typeface typeface = ResourcesCompat.getFont(this, R.font.nunito_medium);
         return typeface;
     }
@@ -139,20 +139,19 @@ public class CreateTransactionActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
-                try{
+                try {
                     TextView textView = (TextView) adapterView.getSelectedView();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         textView.setTextColor(getColor(R.color.black_text_secondary));
                     }
                     textView.setTypeface(getTypeFace());
 
-                    if(position!=0){
+                    if (position != 0) {
                         party = adapterView.getSelectedItem().toString();
-                        binding.addressTextView.setText(partyModelList.get(position-1).getAddress());
+                        binding.addressTextView.setText(partyModelList.get(position - 1).getAddress());
                     }
 
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -229,7 +228,7 @@ public class CreateTransactionActivity extends AppCompatActivity {
                 RadioButton checkedRadio = (RadioButton) findViewById(i);
                 int id = radioGroup.getCheckedRadioButtonId();
 
-                switch (i){
+                switch (i) {
                     case R.id.chequeRadioButton:
                         paymentMode = "Cheque";
                         binding.chequeDetailsConstraintLayout.setVisibility(View.VISIBLE);
@@ -258,10 +257,10 @@ public class CreateTransactionActivity extends AppCompatActivity {
                         binding.onlineDetailsConstraintLayout.setVisibility(View.GONE);
                         break;
 
-                  //  case R.id.creditDebitRadioButton:
-                       // paymentMode = "Credit or Debit";
-                       // binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
-                        //break;
+                    //  case R.id.creditDebitRadioButton:
+                    // paymentMode = "Credit or Debit";
+                    // binding.chequeDetailsConstraintLayout.setVisibility(View.GONE);
+                    //break;
                 }
                 paymentMode = checkedRadio.getText().toString();
             }
@@ -278,37 +277,37 @@ public class CreateTransactionActivity extends AppCompatActivity {
                     binding.amountInputLayout.setError("Enter Amount");
                     binding.amountEditText.requestFocus();
 
-                } else if(Validation.isStringEmpty(paymentMode)){
+                } else if (Validation.isStringEmpty(paymentMode)) {
                     Toast.makeText(CreateTransactionActivity.this, "Enter Payment Mode", Toast.LENGTH_SHORT).show();
 
                 } else {
 
-                    TransactionModel transactionModel = new TransactionModel(currentMrNo,party,paymentMode, amount ,DateFormat.getCurrentDate());
+                    TransactionModel transactionModel = new TransactionModel(currentMrNo, party, paymentMode, amount, DateFormat.getCurrentDate());
                     transactionModel.setAddress(binding.addressTextView.getText().toString().trim());
 
-                    switch (paymentMode){
+                    switch (paymentMode) {
 
-                        case "Cheque" :
+                        case "Cheque":
 
                             String date = binding.dateEditText.getText().toString().trim();
                             String bankName = binding.bankNameEditText.getText().toString().trim();
                             String chequeNo = binding.chequeNoEditText.getText().toString().trim();
 
-                            if(isChequeDetailValidate(date,bankName,chequeNo)) {
+                            if (isChequeDetailValidate(date, bankName, chequeNo)) {
 
-                            ChequeDetailModel chequeDetailModel = new ChequeDetailModel(date,bankName,chequeNo);
-                            transactionModel.setChequeDetail(chequeDetailModel);
+                                ChequeDetailModel chequeDetailModel = new ChequeDetailModel(date, bankName, chequeNo);
+                                transactionModel.setChequeDetail(chequeDetailModel);
 
-                            createTransactionToServer(transactionModel);
-                           }
-                           break;
+                                createTransactionToServer(transactionModel);
+                            }
+                            break;
 
                         case "Online":
 
                             String onlineDate = binding.onlineDateEditText.getText().toString().trim();
                             String onlineReferenceId = binding.onlineReferenceIdEditText.getText().toString().trim();
 
-                            if(isOnlineDetailValidate(onlineReferenceId,onlineDate)) {
+                            if (isOnlineDetailValidate(onlineReferenceId, onlineDate)) {
 
                                 OnlineDetailModel onlineDetailModel = new OnlineDetailModel(onlineReferenceId, onlineDate);
                                 transactionModel.setOnlineDetail(onlineDetailModel);
@@ -317,12 +316,12 @@ public class CreateTransactionActivity extends AppCompatActivity {
                             }
                             break;
 
-                        case "UPI" :
+                        case "UPI":
 
                             String upiDate = binding.dateUpiIdEditText.getText().toString().trim();
                             String upiId = binding.upiIdEditText.getText().toString().trim();
 
-                            if(isUpiDetailValidate(upiId,upiDate)) {
+                            if (isUpiDetailValidate(upiId, upiDate)) {
 
                                 UpiDetailModel upiDetailModel = new UpiDetailModel(upiId, upiDate);
                                 transactionModel.setUpiDetail(upiDetailModel);
@@ -379,38 +378,39 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
     /* =================================== VALIDATION ============================= */
 
-    private boolean isChequeDetailValidate(String date , String bankName , String chequeNo){
+    private boolean isChequeDetailValidate(String date, String bankName, String chequeNo) {
 
-        if(Validation.isStringEmpty(date)){
+        if (Validation.isStringEmpty(date)) {
             binding.dateInputLayout.setError("Select Date");
             binding.dateEditText.requestFocus();
             return false;
 
-        } else if(Validation.isStringEmpty(bankName)){
+        } else if (Validation.isStringEmpty(bankName)) {
             AppBoiler.setInputLayoutErrorDisable(binding.dateInputLayout);
             binding.bankNameInputLayout.setError("Enter Bank Name");
             binding.bankNameEditText.requestFocus();
             return false;
 
-        } else if(Validation.isStringEmpty(chequeNo)){
+        } else if (Validation.isStringEmpty(chequeNo)) {
             AppBoiler.setInputLayoutErrorDisable(binding.bankNameInputLayout);
             binding.chequeNoInputLayout.setError("Enter Cheque Number");
             binding.chequeNoEditText.requestFocus();
             return false;
-        } else{
+        } else {
             AppBoiler.setInputLayoutErrorDisable(binding.chequeNoInputLayout);
             return true;
         }
 
     }
-    private boolean isUpiDetailValidate(String upiId , String dateUpi){
 
-        if(Validation.isStringEmpty(upiId)){
+    private boolean isUpiDetailValidate(String upiId, String dateUpi) {
+
+        if (Validation.isStringEmpty(upiId)) {
             binding.upiIdInputLayout.setError("Enter UPI Id");
             binding.upiIdEditText.requestFocus();
             return false;
 
-        } else if(Validation.isStringEmpty(dateUpi)){
+        } else if (Validation.isStringEmpty(dateUpi)) {
             AppBoiler.setInputLayoutErrorDisable(binding.dateInputLayout);
             binding.dateUpiIdInputLayout.setError("Enter Date");
             binding.dateUpiIdEditText.requestFocus();
@@ -423,14 +423,14 @@ public class CreateTransactionActivity extends AppCompatActivity {
 
     }
 
-    private boolean isOnlineDetailValidate(String referenceId , String date){
+    private boolean isOnlineDetailValidate(String referenceId, String date) {
 
-        if(Validation.isStringEmpty(referenceId)){
+        if (Validation.isStringEmpty(referenceId)) {
             binding.onlineReferenceIdInputLayout.setError("Enter Reference Id");
             binding.onlineReferenceIdEditText.requestFocus();
             return false;
 
-        } else if(Validation.isStringEmpty(date)){
+        } else if (Validation.isStringEmpty(date)) {
             binding.onlineDateInputLayout.setError("Enter Date");
             binding.onlineDateEditText.requestFocus();
             return false;

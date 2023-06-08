@@ -11,30 +11,30 @@ import java.util.List;
 public class ViewAllTransactionViewModel extends ViewModel {
 
     private ViewAllTransactionRepository viewAllTransactionRepository = new ViewAllTransactionRepository();
-    private MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData ;
+    private MutableLiveData<List<TransactionModel>> allTransactionListMutableLiveData;
 
-    public LiveData<List<TransactionModel>> getTransactionFromRepository(){
+    public LiveData<List<TransactionModel>> getTransactionFromRepository() {
 
-            if(allTransactionListMutableLiveData == null){
-                allTransactionListMutableLiveData = viewAllTransactionRepository.getTransactionFromServer();
-            }
+        if (allTransactionListMutableLiveData == null) {
+            allTransactionListMutableLiveData = viewAllTransactionRepository.getTransactionFromServer();
+        }
         return allTransactionListMutableLiveData;
     }
 
-    public void updateMutableListLiveData(List<TransactionModel> allTransactionModelList){
+    public void updateMutableListLiveData(List<TransactionModel> allTransactionModelList) {
 
         List<TransactionModel> modelList = allTransactionListMutableLiveData.getValue();
 
-        assert modelList!=null;
+        assert modelList != null;
         modelList.addAll(allTransactionModelList);
         allTransactionListMutableLiveData.setValue(modelList);
     }
 
-    public LiveData<List<TransactionModel>> getTransactionsFromRepositoryAgain(){
+    public LiveData<List<TransactionModel>> getTransactionsFromRepositoryAgain() {
         return viewAllTransactionRepository.getTransactionFromServer();
     }
 
-    public LiveData<List<TransactionModel>> getTransactionOfSelectedParty(String partyName){
+    public LiveData<List<TransactionModel>> getTransactionOfSelectedParty(String partyName) {
         return viewAllTransactionRepository.getTransactionOfSelectedPartyFromServer(partyName);
     }
 }
