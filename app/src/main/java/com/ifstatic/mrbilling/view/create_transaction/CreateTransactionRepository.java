@@ -17,13 +17,25 @@ public class CreateTransactionRepository {
 
         MutableLiveData<String> responseMutableLiveData = new MutableLiveData<>();
 
+
         DatabaseReference databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
 
-        databaseReference.child("Transaction").push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                responseMutableLiveData.setValue(AppConstants.SUCCESS);
-            }
+        String transactionId = databaseReference.child("Transaction").push().getKey();
+
+        model.setTransactionId(transactionId);
+
+        databaseReference.child("Transaction").child(transactionId).setValue(model)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        responseMutableLiveData.setValue(AppConstants.SUCCESS);
+                    }
+
+//        databaseReference.child("Transaction").push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void unused) {
+//                responseMutableLiveData.setValue(AppConstants.SUCCESS);
+//            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

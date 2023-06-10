@@ -15,10 +15,21 @@ public class TransactionModel implements Parcelable {
     private String amount;
     private String date;
     private String address;
+
+    private String transactionId;
+
+
     private ChequeDetailModel chequeDetail;
     private UpiDetailModel upiDetail;
     private OnlineDetailModel onlineDetail;
 
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public TransactionModel() {
     }
