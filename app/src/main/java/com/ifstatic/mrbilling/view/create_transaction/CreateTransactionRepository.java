@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.ktx.Firebase;
 import com.ifstatic.mrbilling.comman.models.TransactionModel;
 import com.ifstatic.mrbilling.repository.remote.FirebaseHelper;
 import com.ifstatic.mrbilling.utilities.AppConstants;
@@ -17,25 +19,20 @@ public class CreateTransactionRepository {
 
         MutableLiveData<String> responseMutableLiveData = new MutableLiveData<>();
 
-
         DatabaseReference databaseReference = FirebaseHelper.getInstance().getDatabaseReference();
 
         String transactionId = databaseReference.child("Transaction").push().getKey();
 
+        String userId = FirebaseAuth.getInstance().getUid();
+
         model.setTransactionId(transactionId);
 
-        databaseReference.child("Transaction").child(transactionId).setValue(model)
+        databaseReference.child("Transaction").child(transactionId).child(userId).setValue(model)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         responseMutableLiveData.setValue(AppConstants.SUCCESS);
                     }
-
-//        databaseReference.child("Transaction").push().setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void unused) {
-//                responseMutableLiveData.setValue(AppConstants.SUCCESS);
-//            }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
