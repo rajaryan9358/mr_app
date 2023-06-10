@@ -26,8 +26,9 @@ public class CreateTransactionRepository {
         String userId = FirebaseAuth.getInstance().getUid();
 
         model.setTransactionId(transactionId);
+        model.setUserId(userId);
 
-        databaseReference.child("Transaction").child(transactionId).child(userId).setValue(model)
+        databaseReference.child("Transaction").child(transactionId).setValue(model)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
