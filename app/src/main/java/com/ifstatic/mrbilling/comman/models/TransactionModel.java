@@ -132,7 +132,7 @@ private String username;
     }
 
 
-    @Override
+     @Override
     public int describeContents() {
         return 0;
     }
@@ -145,9 +145,12 @@ private String username;
         dest.writeString(this.amount);
         dest.writeString(this.date);
         dest.writeString(this.address);
-        dest.writeParcelable((Parcelable) this.chequeDetail, flags);
-        dest.writeParcelable((Parcelable) this.upiDetail,flags);
-        dest.writeParcelable((Parcelable) this.onlineDetail,flags);
+        dest.writeString(this.username);
+        dest.writeString(this.userId);
+        dest.writeString(this.transactionId);
+        dest.writeParcelable(this.chequeDetail, flags);
+        dest.writeParcelable(this.upiDetail, flags);
+        dest.writeParcelable(this.onlineDetail, flags);
     }
 
     public void readFromParcel(Parcel source) {
@@ -157,6 +160,9 @@ private String username;
         this.amount = source.readString();
         this.date = source.readString();
         this.address = source.readString();
+        this.username = source.readString();
+        this.userId = source.readString();
+        this.transactionId = source.readString();
         this.chequeDetail = source.readParcelable(ChequeDetailModel.class.getClassLoader());
         this.upiDetail = source.readParcelable(UpiDetailModel.class.getClassLoader());
         this.onlineDetail = source.readParcelable(OnlineDetailModel.class.getClassLoader());
@@ -169,12 +175,15 @@ private String username;
         this.amount = in.readString();
         this.date = in.readString();
         this.address = in.readString();
+        this.username = in.readString();
+        this.userId = in.readString();
+        this.transactionId = in.readString();
         this.chequeDetail = in.readParcelable(ChequeDetailModel.class.getClassLoader());
         this.upiDetail = in.readParcelable(UpiDetailModel.class.getClassLoader());
         this.onlineDetail = in.readParcelable(OnlineDetailModel.class.getClassLoader());
     }
 
-    public static final Creator<TransactionModel> CREATOR = new Creator<TransactionModel>() {
+    public static final Parcelable.Creator<TransactionModel> CREATOR = new Parcelable.Creator<TransactionModel>() {
         @Override
         public TransactionModel createFromParcel(Parcel source) {
             return new TransactionModel(source);
