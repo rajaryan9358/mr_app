@@ -15,7 +15,7 @@ public class TransactionModel implements Parcelable {
     private String amount;
     private String date;
     private String address;
-
+private String username;
     private String userId;
     private String transactionId;
 
@@ -23,6 +23,14 @@ public class TransactionModel implements Parcelable {
     private ChequeDetailModel chequeDetail;
     private UpiDetailModel upiDetail;
     private OnlineDetailModel onlineDetail;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getTransactionId() {
         return transactionId;

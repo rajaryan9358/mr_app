@@ -77,4 +77,8 @@ dependencies {
 
     //Swipe refresh layout
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
+    //pdf generator
+    implementation 'com.itextpdf:itext7-core:7.1.15'
+
 }
